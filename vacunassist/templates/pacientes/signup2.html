@@ -1,0 +1,350 @@
+{% extends "pacientes/base.html" %}
+{% load static %}
+
+{% block title %}Registrar Usuario Paciente{% endblock %}
+
+
+{% block content %}
+<!-- <div class="col-lg-4 col-offset-1 centered"> -->
+<div class="container" id="card-container">
+<div class="row justify-content-md-center">
+<div class="col-md-6 my-4">
+    <div class="card">
+        
+        {% if messages %}
+        {% for message in messages %}
+        <div class="{% if message.tags == 'error' %} alert alert-warning {% else %} alert alert-success {% endif %}" style="padding-top: 10px;">
+            <button class="close" data-dismiss="alert" aria-label="close">&times;</button>
+            {{ message }}
+        </div>
+        {% endfor %}
+        {% endif %}
+
+    <form action="/pacientes/registro2/" method="POST" id="formulario">
+        {% csrf_token %}
+
+        <fieldset id="second-step">
+
+            <div class="row my-3 mx-3">
+                <h5><b>Información Personal</b></h5>
+            </div>
+
+            <div class="row my-3 mx-3">
+                <div class="col-md-12">
+                    <span>Fecha de nacimiento</span>
+                </div>
+            </div>
+
+            <div style="display:none"> 
+            {{form.password1}}
+            {{form.password2}}
+            {{form.nombre}}
+            {{form.apellido}}
+            {{form.email}}
+            </div>
+            <div class="row my-3 mx-3">
+                <div class="col-md-4">
+                    <div class="fieldWrapper">
+                        <!-- {{ form.nombre.label_tag }} -->
+                        {{ form.dia_nacimiento }}
+                        {{ form.dia_nacimiento.errors }}
+                        {% if form.dia_nacimiento.help_text %}
+                        <p class="help">{{ form.dia_nacimiento.help_text|safe }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="fieldWrapper">
+                        <!-- {{ form.apellido.label_tag }} -->
+                        {{ form.mes_nacimiento }}
+                        {{ form.mes_nacimiento.errors }}
+                        {% if form.mes_nacimiento.help_text %}
+                        <p class="help">{{ form.mes_nacimiento.help_text|safe }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="fieldWrapper">
+                        <!-- {{ form.apellido.label_tag }} -->
+                        {{ form.ano_nacimiento }}
+                        {{ form.ano_nacimiento.errors }}
+                        {% if form.ano_nacimiento.help_text %}
+                        <p class="help">{{ form.ano_nacimiento.help_text|safe }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="row my-3 mx-3">
+                <div class="col-md-6">
+                    <div class="fieldWrapper">
+                        <!-- {{ form.email.label_tag }} -->
+                        {{ form.dni }}
+                        {{ form.dni.errors }}
+                        {% if form.dni.help_text %}
+                        <p class="help">{{ form.dni.help_text|safe }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="fieldWrapper">
+                        <!-- {{ form.apellido.label_tag }} -->
+                        {{ form.sexo }}
+                        {{ form.sexo.errors }}
+                        {% if form.sexo.help_text %}
+                        <p class="help">{{ form.sexo.help_text|safe }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="row my-3 mx-3">
+                <h5><b>Información Médica</b></h5>
+            </div>
+
+            <div class="row my-3 mx-3">
+                <div class="col-md-12">
+                    <div class="fieldWrapper">
+                        {{ form.es_paciente_riesgo }}
+                        {{ form.es_paciente_riesgo.label_tag }}
+                        {{ form.es_paciente_riesgo.errors }}
+                        {% if form.es_paciente_riesgo.help_text %}
+                        <p class="help">{{ form.es_paciente_riesgo.help_text|safe }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="row my-3 mx-3">
+                <div class="col-md-12">
+                    <span>• ¿Se ha aplicado alguna/s de las siguientes vacunas?¿En qué fecha?</span>
+                </div>
+            </div>
+
+            <div class="row my-3 mx-3">
+                <div class="col-md-6">
+                    <div class="fieldWrapper">
+                        {{ form.vacuna_covid_1 }}
+                        {{ form.vacuna_covid_1.label_tag }}
+                        {{ form.vacuna_covid_1.errors }}
+                        {% if form.vacuna_covid_1.help_text %}
+                        <p class="help">{{ form.vacuna_covid_1.help_text|safe }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="fieldWrapper">
+                        <!-- {{ form.fecha_vacunacion_covid.label_tag }} -->
+                        {{ form.fecha_vacunacion_covid_1 }}
+                        {{ form.fecha_vacunacion_covid_1.errors }}
+                        {% if form.fecha_vacunacion_covid_1.help_text %}
+                        <p class="help">{{ form.fecha_vacunacion_covid_1.help_text|safe }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row my-3 mx-3">
+                <div class="col-md-6">
+                    <div class="fieldWrapper">
+                        {{ form.vacuna_covid_2 }}
+                        {{ form.vacuna_covid_2.label_tag }}
+                        {{ form.vacuna_covid_2.errors }}
+                        {% if form.vacuna_covid_2.help_text %}
+                        <p class="help">{{ form.vacuna_covid_2.help_text|safe }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="fieldWrapper">
+                        <!-- {{ form.fecha_vacunacion_covid.label_tag }} -->
+                        {{ form.fecha_vacunacion_covid_2 }}
+                        {{ form.fecha_vacunacion_covid_2.errors }}
+                        {% if form.fecha_vacunacion_covid_2.help_text %}
+                        <p class="help">{{ form.fecha_vacunacion_covid_2.help_text|safe }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="row my-3 mx-3">
+                <div class="col-md-6">
+                    <div class="fieldWrapper">
+                        {{ form.vacuna_gripe }}
+                        {{ form.vacuna_gripe.label_tag }}
+                        {{ form.vacuna_gripe.errors }}
+                        {% if form.vacuna_gripe.help_text %}
+                        <p class="help">{{ form.vacuna_gripe.help_text|safe }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="fieldWrapper">
+                        <!-- {{ form.fecha_vacunacion_gripe.label_tag }} -->
+                        {{ form.fecha_vacunacion_gripe }}
+                        {{ form.fecha_vacunacion_gripe.errors }}
+                        {% if form.fecha_vacunacion_gripe.help_text %}
+                        <p class="help">{{ form.fecha_vacunacion_gripe.help_text|safe }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="row my-3 mx-3">
+                <div class="col-md-6">
+                    <div class="fieldWrapper">
+                        {{ form.vacuna_fa }}
+                        {{ form.vacuna_fa.label_tag }}
+                        {{ form.vacuna_fa.errors }}
+                        {% if form.vacuna_fa.help_text %}
+                        <p class="help">{{ form.vacuna_fa.help_text|safe }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="fieldWrapper">
+                        <!-- {{ form.fecha_vacunacion_fa.label_tag }} -->
+                        {{ form.fecha_vacunacion_fa }}
+                        {{ form.fecha_vacunacion_fa.errors }}
+                        {% if form.fecha_vacunacion_fa.help_text %}
+                        <p class="help">{{ form.fecha_vacunacion_fa.help_text|safe }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="row my-3 mx-3">
+                <div class="col-md-6">
+                    <!-- <h6>Centro de preferencia</h6> -->
+                    {{ form.centro_vacunatorio.label_tag }}
+                </div>
+                <div class="col-md-6">
+                    <div class="fieldWrapper">
+                        {{ form.centro_vacunatorio }}
+                        {{ form.centro_vacunatorio.errors }}
+                        {% if form.centro_vacunatorio.help_text %}
+                        <p class="help">{{ form.centro_vacunatorio.help_text|safe }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="row my-3 mx-3">
+                <div class="col-sm-12">
+                    <button type="button" class="btn btn-dark" onClick="history.go(-1);">Atrás</button>
+                    <button type="submit" class="btn btn-success">Registrar</button>
+                </div>
+            </div>
+
+        </fieldset>
+
+    </form>
+    </div>
+</div>
+</div>
+</div>
+<!-- </div> -->
+
+    <script>
+
+        function createAlert(alertType, alertText){
+            mensaje = document.createElement("div");
+            mensaje.className = "alert alert-" + alertType;
+            mensaje.textContent = alertText;
+
+            boton = document.createElement("button");
+            boton.className = "close";
+            boton.setAttribute("data-dismiss", "alert");
+            boton.setAttribute("aria-label", "close");
+            boton.textContent = "×";
+
+            mensaje.appendChild(boton);
+
+            return mensaje;
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            document.getElementById("formulario").addEventListener('submit', validateDateFields);
+        });
+
+        function validateDateFields(evento){
+
+            evento.preventDefault();
+
+            // primero se verifica que la fecha de nacimiento ingresada sea válida
+            var day   = document.getElementById("id_dia_nacimiento").value;
+            var month = document.getElementById("id_mes_nacimiento").value;
+            var year  = document.getElementById("id_ano_nacimiento").value;
+            var birth_date = year + '-' + month + '-' + day;
+            var isValidDate = Date.parse(birth_date)
+
+            console.log(birth_date)
+            console.log(isValidDate)
+
+            if(isNaN(isValidDate)){
+                alerta = createAlert("warning", "Debe ingresar una fecha de nacimiento válida.");
+                cardContainer = document.querySelector("#card-container");
+                cardContainer.insertAdjacentElement("beforebegin", alerta);
+                $(window).scrollTop(0);
+                return;
+            }
+
+            // se verifica que las fechas de vacunación ingresadas sean válidas.
+            var covid_1_date = document.getElementById("id_fecha_vacunacion_covid_1");
+            var covid_2_date = document.getElementById("id_fecha_vacunacion_covid_2");
+            var gripe_date = document.getElementById("id_fecha_vacunacion_gripe");
+            var fiebre_date = document.getElementById("id_fecha_vacunacion_fa");
+            
+            var throwAlert = (!covid_1_date.disabled && isNaN(Date.parse(covid_1_date.value))) ||
+                             (!covid_2_date.disabled && isNaN(Date.parse(covid_2_date.value))) ||
+                             (!gripe_date.disabled && isNaN(Date.parse(gripe_date.value))) ||
+                             (!fiebre_date.disabled && isNaN(Date.parse(fiebre_date.value)))
+
+            if(throwAlert){
+                alerta = createAlert("warning", "Debe ingresar fechas de vacunación válidas.");
+                cardContainer = document.querySelector("#card-container");
+                cardContainer.insertAdjacentElement("beforebegin", alerta);
+                $(window).scrollTop(0);
+
+                return;
+            }
+
+            // si se pasaron las validaciones anteriores, se realiza el submit del formulario.
+            this.submit();
+        }
+
+        
+        // funciones para activar y desactivar campos de fecha de las vacunas
+        function disableCovidField1() {
+            var covid_1 = document.getElementById("id_fecha_vacunacion_covid_1");
+            covid_1.disabled = !covid_1.disabled
+
+            var covid_2 = document.getElementById("id_vacuna_covid_2");
+            covid_2.disabled = !covid_2.disabled
+
+            var covid_2_fecha = document.getElementById("id_fecha_vacunacion_covid_2");
+            if(!covid_2_fecha.disabled){
+                disableCovidField2()
+            }
+            else{
+                if(covid_2.checked){
+                    disableCovidField2()
+                }
+            }
+        }
+        function disableCovidField2() {
+            var field = document.getElementById("id_fecha_vacunacion_covid_2");
+            field.disabled = !field.disabled
+        }
+        function disableGripeField() {
+            var field = document.getElementById("id_fecha_vacunacion_gripe");
+            field.disabled = !field.disabled
+        }
+        function disableFAField() {
+            var field = document.getElementById("id_fecha_vacunacion_fa");
+            field.disabled = !field.disabled
+        }
+
+    </script>
+
+{% endblock %}

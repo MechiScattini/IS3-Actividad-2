@@ -1,0 +1,57 @@
+{% extends "pacientes/base.html" %}
+{% load static %}
+{% block title %}  Mis Turnos {% endblock %}
+{% block content %}
+
+
+<div class="card">
+    <div class="card-header" style="min-height: 224px;">
+        <div class="row" style="margin-top: 10px;">
+            <div class="col-md-12 text-center ">
+                <strong class="card-title">
+                    <h2>Listado de Turnos</h2>
+                </strong>
+            </div>
+        </div>
+
+        {% if turnos%}
+        <div class="container">
+            <div class="row">
+                {% for turno in turnos %}
+                <div class="col-md-4 mt-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title mb-2"><b>{{ turno.solicitud_id__vacuna_id__nombre }}</b></h4>
+                            <p class="card-text">Día del turno: {{ turno.fecha_confirmada }}</p>
+                            <p class="card-text">Estado: 
+                                {% if turno.turno_perdido %}
+                                no asistió.
+                                {% elif turno.turno_pendiente %}
+                                en espera.
+                                {% else %}
+                                completado.
+                                {% endif %}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                {%endfor %}
+            </div>
+        </div>
+        {% else %}
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 mt-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="card-text">Por el momento usted no tiene turnos registrados.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}
