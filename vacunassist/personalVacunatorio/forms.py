@@ -24,48 +24,72 @@ centros = [
 class PersonalSignIn(forms.Form):
    
     email = forms.EmailField(
-        max_length=200,
-        required=True,
-        widget=forms.EmailInput(attrs={'class' : 'form-control', 'placeholder' : 'Email'})
+        max_length = 200,
+        required = True,
+        widget = forms.EmailInput(
+            attrs = {'class' : 'form-control', 'placeholder' : 'Email'}
+        )
     )
     password = forms.CharField(
-        label="Contraseña",
-        widget=forms.PasswordInput()
+        label = "Contraseña",
+        widget = forms.PasswordInput()
     )
 
 
 class PersonalChangeForm(forms.ModelForm):
     
     nombre = forms.CharField(
-        max_length=100,
-        required=True,
-        widget=forms.TextInput(attrs = {'class' : 'form-control','placeholder' : 'Nombre'})
+        max_length = 100,
+        required = True,
+        widget = forms.TextInput(
+            attrs = {'class' : 'form-control','placeholder' : 'Nombre'}
+        )
     )
     apellido = forms.CharField(
         max_length=100,
         required=True,
-        widget=forms.TextInput(attrs = {'class' : 'form-control','placeholder' : 'Apellido'})
+        widget=forms.TextInput(
+            attrs = {'class' : 'form-control','placeholder' : 'Apellido'}
+        )
     )
     numero_telefono = forms.IntegerField(
         label='Número Teléfono',
         required=False,
-        widget=forms.TextInput(attrs = {'class' : 'form-control','placeholder' : 'Número de teléfono'})
+        widget=forms.TextInput(
+            attrs = {
+                'class' : 'form-control',
+                'placeholder' : 'Número de teléfono'
+            }
+        )
     )
     fecha_nacimiento = forms.DateField(
         required=True,
         label='Fecha Nacimiento',
-        widget=forms.DateInput(attrs = {'type': 'date', 'class' : 'form-control', 'placeholder' : 'Fecha de Nacimiento'})
+        widget=forms.DateInput(
+            attrs = {
+                'type': 'date',
+                'class' : 'form-control',
+                'placeholder' : 'Fecha de Nacimiento'
+            }
+        )
     )
     email = forms.EmailField(
         max_length=200,
         required=True,
-        widget=forms.EmailInput(attrs={'class' : 'form-control', 'placeholder' : 'Email'})
+        widget=forms.EmailInput(
+            attrs={'class' : 'form-control', 'placeholder' : 'Email'}
+        )
     )
     centro_vacunatorio = forms.ChoiceField(
         choices=centros,
         required=True,
         label="Centro vacunatorio",
-        widget=forms.Select(attrs = {'class' : 'form-control','placeholder' : 'Centro Vacunatorio'})
+        widget=forms.Select(
+            attrs = {
+                'class' : 'form-control',
+                'placeholder' : 'Centro Vacunatorio'
+            }
+        )
     )
 
 
@@ -80,11 +104,17 @@ class PersonalChangeForm(forms.ModelForm):
         user.save()
 
         personal_details = PersonalDetalles.objects.get(user=user)
-        personal_details.nombre             = self.cleaned_data['nombre']
-        personal_details.apellido           = self.cleaned_data['apellido']
-        personal_details.numero_telefono    = self.cleaned_data['numero_telefono']
-        personal_details.fecha_nacimiento   = self.cleaned_data['fecha_nacimiento']
-        personal_details.centro_vacunatorio = self.cleaned_data['centro_vacunatorio']
+        personal_details.nombre = self.cleaned_data['nombre']
+        personal_details.apellido = self.cleaned_data['apellido']
+        personal_details.numero_telefono = (
+            self.cleaned_data['numero_telefono']
+        )
+        personal_details.fecha_nacimiento = (
+            self.cleaned_data['fecha_nacimiento']
+        )
+        personal_details.centro_vacunatorio = (
+            self.cleaned_data['centro_vacunatorio']
+        )
         personal_details.save()
 
         return user
@@ -92,7 +122,14 @@ class PersonalChangeForm(forms.ModelForm):
 
     class Meta:
         model = PersonalDetalles
-        fields = ('nombre', 'apellido', 'numero_telefono', 'fecha_nacimiento', 'email', 'centro_vacunatorio')
+        fields = (
+            'nombre',
+            'apellido',
+            'numero_telefono',
+            'fecha_nacimiento',
+            'email',
+            'centro_vacunatorio'
+        )
 
 
 class PersonalSignUpForm(UserCreationForm):
@@ -105,33 +142,55 @@ class PersonalSignUpForm(UserCreationForm):
     nombre = forms.CharField(
         max_length=100,
         required=True,
-        widget=forms.TextInput(attrs = {'class' : 'form-control','placeholder' : 'Nombre'})
+        widget=forms.TextInput(
+            attrs = {'class' : 'form-control','placeholder' : 'Nombre'}
+        )
     )
     apellido = forms.CharField(
         max_length=100,
         required=True,
-        widget=forms.TextInput(attrs = {'class' : 'form-control','placeholder' : 'Apellido'})
+        widget=forms.TextInput(
+            attrs = {'class' : 'form-control','placeholder' : 'Apellido'}
+        )
     )
     numero_telefono = forms.IntegerField(
         label='Número Teléfono',
         required=False,
-        widget=forms.TextInput(attrs = {'class' : 'form-control','placeholder' : 'Número de teléfono'})
+        widget=forms.TextInput(
+            attrs = {
+                'class' : 'form-control',
+                'placeholder' : 'Número de teléfono'
+            }
+        )
     )
     fecha_nacimiento = forms.DateField(
         required=True,
         label='Fecha Nacimiento',
-        widget=forms.DateInput(attrs = {'type': 'date', 'class' : 'form-control', 'placeholder' : 'Fecha de Nacimiento'})
+        widget=forms.DateInput(
+            attrs = {
+                'type': 'date',
+                'class' : 'form-control',
+                'placeholder' : 'Fecha de Nacimiento'
+            }
+        )
     )
     email = forms.EmailField(
         max_length=200,
         required=True,
-        widget=forms.EmailInput(attrs={'class' : 'form-control', 'placeholder' : 'Email'})
+        widget=forms.EmailInput(
+            attrs={'class' : 'form-control', 'placeholder' : 'Email'}
+        )
     )
     centro_vacunatorio = forms.ChoiceField(
         choices=centros,
         required=True,
         label="Centro vacunatorio",
-        widget=forms.Select(attrs = {'class' : 'form-control','placeholder' : 'Centro Vacunatorio'})
+        widget=forms.Select(
+            attrs = {
+                'class' : 'form-control',
+                'placeholder' : 'Centro Vacunatorio'
+            }
+        )
     )
 
     class Meta:
@@ -141,8 +200,9 @@ class PersonalSignUpForm(UserCreationForm):
 
 
     def send_register_email(self):
-        '''Se envía un mail al correo del usuario paciente registrado con el token que
-        se generó para utilizar en el inicio de sesión.'''
+        '''Se envía un mail al correo del usuario paciente
+        registrado con el token que se generó
+        para utilizar en el inicio de sesión.'''
 
         subject = 'Registro de Usuario Exitoso.'
         from_email = 'VacunAssist <%s>' % (settings.EMAIL_HOST_USER)
@@ -161,7 +221,13 @@ class PersonalSignUpForm(UserCreationForm):
         text_content = text_content.render(context)
         html_content = html_content.render(context)
 
-        email = EmailMultiAlternatives(subject, text_content, from_email, to=[to_email,], reply_to=[reply_to_email,])
+        email = EmailMultiAlternatives(
+            subject,
+            text_content,
+            from_email,
+            to=[to_email,],
+            reply_to=[reply_to_email,]
+        )
         email.mixed_subtype = 'related'
         email.content_subtype = 'html'
         email.attach_alternative(html_content, 'text/html')
@@ -170,7 +236,11 @@ class PersonalSignUpForm(UserCreationForm):
         with open(file_path, 'rb') as f:
             image = MIMEImage(f.read())
             image.add_header('Content-ID', '<%s>' % (image_name))
-            image.add_header('Content-Disposition', 'inline', filename=image_name)
+            image.add_header(
+                'Content-Disposition',
+                'inline',
+                filename=image_name
+            )
             email.attach(image)
 
         email.send(fail_silently=False)
@@ -185,11 +255,17 @@ class PersonalSignUpForm(UserCreationForm):
         
         if PersonalDetalles.objects.filter(user=user).exists():
             personal_details = PersonalDetalles.objects.get(user=user)
-            personal_details.nombre             = self.cleaned_data['nombre']
-            personal_details.apellido           = self.cleaned_data['apellido']
-            personal_details.numero_telefono    = self.cleaned_data['numero_telefono']
-            personal_details.fecha_nacimiento   = self.cleaned_data['fecha_nacimiento']
-            personal_details.centro_vacunatorio = self.cleaned_data['centro_vacunatorio']
+            personal_details.nombre = self.cleaned_data['nombre']
+            personal_details.apellido = self.cleaned_data['apellido']
+            personal_details.numero_telefono = (
+                self.cleaned_data['numero_telefono']
+            )
+            personal_details.fecha_nacimiento = (
+                self.cleaned_data['fecha_nacimiento']
+            )
+            personal_details.centro_vacunatorio = (
+                self.cleaned_data['centro_vacunatorio']
+            )
         else:
             personal_details = PersonalDetalles(
                 user = user,
@@ -210,11 +286,15 @@ class devolucionForm(forms.Form):
     lote = forms.CharField(
         max_length=100,
         required=True,
-        widget=forms.TextInput(attrs = {'class' : 'form-control','placeholder' : 'Lote'})
+        widget=forms.TextInput(
+            attrs = {'class' : 'form-control','placeholder' : 'Lote'}
+        )
     )
 
     observacion = forms.CharField(
         max_length=100,
         required=True,
-        widget=forms.TextInput(attrs = {'class' : 'form-control','placeholder' : 'Observacion'})
+        widget=forms.TextInput(
+            attrs = {'class' : 'form-control','placeholder' : 'Observacion'}
+        )
     )

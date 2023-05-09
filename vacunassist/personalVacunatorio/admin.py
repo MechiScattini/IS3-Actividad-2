@@ -18,18 +18,33 @@ class UsuariosAdministradores(Usuarios):
 class PersonalAdmin(admin.ModelAdmin):
 
     actions = ['delete_multiple_users']
-    list_display = ('nombre', 'apellido', 'email', 'centro_vacunatorio', 'boton')
-    search_fields = ('personaldetalles__nombre', 'personaldetalles__apellido', 'email', 'personaldetalles__centro_vacunatorio')
+    list_display = (
+        'nombre',
+        'apellido',
+        'email',
+        'centro_vacunatorio',
+        'boton'
+    )
+    search_fields = (
+        'personaldetalles__nombre',
+        'personaldetalles__apellido',
+        'email',
+        'personaldetalles__centro_vacunatorio'
+    )
     list_display_links = None
 
 
     @admin.display(description='Acciones')
     def boton(self, obj):
-        """el parámetro 'obj.pk' es el id del objeto dentro de la línea, hay que pasarlo en
-        el link para saber qué objeto se va a usar, estos botones son de ejemplo y hacen lo mismo
+        """el parámetro 'obj.pk' es el id del objeto dentro de la línea,
+        hay que pasarlo en el link para saber qué objeto se va a usar,
+        estos botones son de ejemplo y hacen lo mismo
         """
         
-        render_action_buttons = render_to_string('admin/personal_action_buttons.html', {'pk' : obj.pk})
+        render_action_buttons = render_to_string(
+            'admin/personal_action_buttons.html',
+            {'pk' : obj.pk}
+        )
         return mark_safe(render_action_buttons)
 
     @admin.display(description='Nombre')
@@ -59,9 +74,20 @@ class PersonalAdmin(admin.ModelAdmin):
 
     def get_fields(self, request, obj=None):
         if obj is None:
-            fields = (('nombre', 'apellido',), ('email', 'numero_telefono'), 'fecha_nacimiento', 'centro_vacunatorio', ('password1', 'password2'))
+            fields = (
+                ('nombre', 'apellido',),
+                ('email', 'numero_telefono'),
+                'fecha_nacimiento',
+                'centro_vacunatorio',
+                ('password1', 'password2')
+            )
         else:
-            fields = (('nombre', 'apellido',), ('email', 'numero_telefono'), 'fecha_nacimiento', 'centro_vacunatorio')
+            fields = (
+                ('nombre', 'apellido',),
+                ('email', 'numero_telefono'),
+                'fecha_nacimiento',
+                'centro_vacunatorio'
+            )
         return fields
 
     def get_form(self, request, obj=None, **kwargs):
@@ -77,17 +103,30 @@ class PersonalAdmin(admin.ModelAdmin):
             personal_user = PersonalDetalles.objects.get(user=obj.id)
             form.base_fields['nombre'].initial = personal_user.nombre
             form.base_fields['apellido'].initial = personal_user.apellido
-            form.base_fields['numero_telefono'].initial = personal_user.numero_telefono
-            form.base_fields['centro_vacunatorio'].initial = personal_user.centro_vacunatorio
-            form.base_fields['fecha_nacimiento'].initial = personal_user.fecha_nacimiento.strftime('%Y-%m-%d')
+            (form
+             .base_fields['numero_telefono']
+             .initial) = personal_user.numero_telefono
+            (form
+             .base_fields['centro_vacunatorio']
+             .initial) = personal_user.centro_vacunatorio
+            (form
+             .base_fields['fecha_nacimiento']
+             .initial) = personal_user.fecha_nacimiento.strftime('%Y-%m-%d')
 
         return form
 
 
     # sobreescribo el método de buscado de elementos para filtrar por criterios
     def get_search_results(self, request, queryset, search_term):
-        queryset, use_distinct = super().get_search_results(request, queryset, search_term)
-        queryset = queryset.filter(tipo_usuario='personal').select_related('personaldetalles')
+        queryset, use_distinct = (
+            super()
+            .get_search_results(request, queryset, search_term)
+        )
+        queryset = (
+            queryset
+            .filter(tipo_usuario='personal')
+            .select_related('personaldetalles')
+        )
 
         return queryset, use_distinct
 
@@ -98,7 +137,11 @@ class PersonalAdmin(admin.ModelAdmin):
         if 'apply' in request.POST:
             for user in queryset:
                 user.delete()
-            messages.success(request, 'Se eliminaron correctamente %s usuarios administradores de vacunatorios.' % (queryset.count()))
+            messages.success(
+                request,
+                'Se eliminaron correctamente %s usuarios administradores de vacunatorios.'
+                % (queryset.count())
+            )
             return redirect('%s' % (request.get_full_path()))
 
         context = {'orders' : queryset}
