@@ -39,11 +39,18 @@ def login(request):
             contraseña = form.cleaned_data.get("password")
             token = form.cleaned_data.get("token")
             user = authenticate(request, email=mail, password=contraseña)
-            if user is not None and PacientesDetalles.objects.filter(token=token,user=user).exists():
+            if user is not None and (
+                    PacientesDetalles.objects.filter(
+                        token=token,
+                        user=user).exists()
+            ):
                 auth_login(request, user)
                 return redirect('/pacientes/')
             else:
-                messages.error(request, "Alguna/s de las credenciales ingresadas son incorrectas.")  
+                messages.error(
+                    request,
+                    "Alguna/s de las credenciales ingresadas son incorrectas."
+                )
         else: 
             messages.error(request, "informacion")
     form = UserSign()     
@@ -66,9 +73,21 @@ def signup1(request):
             'password2': form.cleaned_data.get("password2"),
             'password1': form.cleaned_data.get("password1")})
 
-            form_usuario.fields['nombre'].initial = form.cleaned_data.get("nombre")
-            form_usuario.fields['apellido'].initial = form.cleaned_data.get("apellido")
-            form_usuario.fields['email'].initial = form.cleaned_data.get("email")
+            form_usuario.fields['nombre'].initial = (
+                form
+                .cleaned_data
+                .get("nombre")
+            )
+            form_usuario.fields['apellido'].initial = (
+                form
+                .cleaned_data
+                .get("apellido")
+            )
+            form_usuario.fields['email'].initial = (
+                form
+                .cleaned_data
+                .get("email")
+            )
             form_usuario.fields['password1'].widget.render_value = True
             form_usuario.fields['password2'].widget.render_value = True
             context = {'form' : form_usuario}
@@ -101,30 +120,60 @@ def view_profile(request):
 def listar_vacunas(request):
     paciente = PacientesDetalles.objects.get(user_id=request.user.id)
 
-    vacunas = VacunasAplicadas.objects.filter(paciente_id=paciente.paciente_id)\
+    vacunas = (
+        VacunasAplicadas
+        .objects
+        .filter(paciente_id=paciente.paciente_id)
         .values('vacuna_id__nombre', 'fecha_vacunacion', 'vacuna_id')
+    )
 
-    return render(request, "pacientes/listar_vacunas.html/", {'vacunas' : vacunas})
+    return render(
+        request,
+        "pacientes/listar_vacunas.html/",
+        {'vacunas' : vacunas}
+    )
 
 
 @login_required(login_url='/pacientes/login_error/')
 def listar_solicitudes(request):
     paciente = PacientesDetalles.objects.get(user_id=request.user.id)
 
-    solicitudes = PacientesSolicitudes.objects.filter(paciente_id=paciente.paciente_id)\
+    solicitudes = (
+        PacientesSolicitudes
+        .objects
+        .filter(paciente_id=paciente.paciente_id)
         .values('vacuna_id__nombre', 'fecha_solicitud', 'solicitud_aprobada')
-    return render(request, "pacientes/listar_solicitudes.html/", {'solicitudes' : solicitudes})
+    )
+    return render(
+        request,
+        "pacientes/listar_solicitudes.html/",
+        {'solicitudes' : solicitudes}
+    )
 
 
 @login_required(login_url='/pacientes/login_error/')
 def listar_turnos(request):
     paciente = PacientesDetalles.objects.get(user_id=request.user.id)
 
-    turnos = PacientesTurnos.objects.filter(
-        solicitud_id__paciente_id=paciente.paciente_id,
-        solicitud_id__solicitud_aprobada=True)\
-            .values('solicitud_id__vacuna_id__nombre', 'fecha_confirmada', 'turno_perdido', 'turno_pendiente', 'turno_completado')
-    return render(request, "pacientes/listar_turnos.html/", {'turnos' : turnos})
+    turnos = (
+        PacientesTurnos
+        .objects
+        .filter(
+            solicitud_id__paciente_id=paciente.paciente_id,
+            solicitud_id__solicitud_aprobada=True)
+        .values(
+            'solicitud_id__vacuna_id__nombre',
+            'fecha_confirmada',
+            'turno_perdido',
+            'turno_pendiente',
+            'turno_completado'
+        )
+    )
+    return render(
+        request,
+        "pacientes/listar_turnos.html/",
+        {'turnos' : turnos}
+    )
 
 
 @login_required(login_url='/pacientes/login_error/')
@@ -133,16 +182,39 @@ def solicitud_fiebre_amarilla(request):
     paciente = PacientesDetalles.objects.get(user_id=request.user.id)
     
     try:
-        solicitud = PacientesSolicitudes.objects.get(paciente_id=paciente.paciente_id, vacuna_id=4)
+        solicitud = (
+            PacientesSolicitudes
+            .objects
+            .get(
+                paciente_id=paciente.paciente_id,
+                vacuna_id=4
+            )
+        )
     except:
         pass
 
     paciente_edad = relativedelta(datetime.now(), paciente.fecha_nacimiento)
 
-    vacuna_aplicada = VacunasAplicadas.objects.filter(paciente_id=paciente.paciente_id, vacuna_id=4).exists()
-    solicitud_existente = PacientesSolicitudes.objects.filter(paciente_id=paciente.paciente_id, vacuna_id=4).exists()
+    vacuna_aplicada = (
+        VacunasAplicadas
+        .objects
+        .filter(
+            paciente_id=paciente.paciente_id,
+            vacuna_id=4
+        )
+        .exists()
+    )
+    solicitud_existente = (
+        PacientesSolicitudes
+        .objects
+        .filter(
+            paciente_id=paciente.paciente_id,
+            vacuna_id=4)
+        .exists()
+    )
 
-    if paciente_edad.years < 60 and not vacuna_aplicada and not solicitud_existente:        
+    if paciente_edad.years < 60 and \
+            not vacuna_aplicada and not solicitud_existente:
         solicitud_fa = PacientesSolicitudes(
             paciente_id = paciente.paciente_id,
             vacuna_id = 4,
@@ -151,18 +223,33 @@ def solicitud_fiebre_amarilla(request):
             centro_vacunatorio = paciente.centro_vacunatorio
         )
         solicitud_fa.save()
-        messages.success(request, "La solicitud se ha realizado de forma exitosa.")
+        messages.success(
+            request,
+            "La solicitud se ha realizado de forma exitosa."
+        )
     
     else:
         if vacuna_aplicada:
-            messages.error(request, "Usted ya se ha aplicado la vacuna contra la fiebre amarilla.")
+            messages.error(
+                request,
+                "Usted ya se ha aplicado la vacuna contra la fiebre amarilla."
+            )
         elif paciente_edad.years >= 60:
-            messages.error(request, "La vacuna contra la fiebre amarilla solo se aplica a menores de 60 años.")
+            messages.error(
+                request,
+                "La vacuna contra la fiebre amarilla solo se aplica a menores de 60 años."
+            )
         elif solicitud_existente:
             if solicitud.solicitud_aprobada:
-                messages.error(request, "Usted ya recibió un turno para aplicarse esta vacuna.")
+                messages.error(
+                    request,
+                    "Usted ya recibió un turno para aplicarse esta vacuna."
+                )
             else:
-                messages.error(request, "Usted ya ha solicitado un turno para aplicarse esta vacuna.")
+                messages.error(
+                    request,
+                    "Usted ya ha solicitado un turno para aplicarse esta vacuna."
+                )
 
     return redirect('/pacientes/mis_solicitudes/')
 
@@ -185,7 +272,11 @@ def editar_perfil(request):
 
  
     # pass the object as instance in form
-    form = UserUpdateForm(request.POST or None , request.FILES , instance = perfil)
+    form = UserUpdateForm(
+        request.POST or None ,
+        request.FILES ,
+        instance = perfil
+    )
 
 
     """save the data from the form and
@@ -194,7 +285,11 @@ def editar_perfil(request):
     if form.is_valid():
 
         perfil.sexo = form.cleaned_data.get('sexo')
-        perfil.centro_vacunatorio = form.cleaned_data.get('centro_vacunatorio')
+        perfil.centro_vacunatorio = (
+            form
+            .cleaned_data
+            .get('centro_vacunatorio')
+        )
         perfil.save()
         return HttpResponseRedirect("/pacientes/mi_perfil/")
  
@@ -209,10 +304,29 @@ class descargar_comprobante(View):
 
         paciente = PacientesDetalles.objects.get(user_id=request.user.id)
 
-        solicitud = PacientesSolicitudes.objects.filter(paciente_id=paciente.paciente_id, vacuna_id=kwargs['vacuna_id'])\
+        solicitud = (
+            PacientesSolicitudes
+            .objects
+            .filter(
+                paciente_id=paciente.paciente_id,
+                vacuna_id=kwargs['vacuna_id']
+            )
             .values('centro_vacunatorio')
-        vacuna = VacunasAplicadas.objects.filter(paciente_id=paciente.paciente_id, vacuna_id=kwargs['vacuna_id'])\
-            .values('vacuna_id__nombre', 'fecha_vacunacion', 'lote', 'observacion')
+        )
+        vacuna = (
+            VacunasAplicadas
+            .objects
+            .filter(
+                paciente_id=paciente.paciente_id,
+                vacuna_id=kwargs['vacuna_id']
+            )
+            .values(
+                'vacuna_id__nombre',
+                'fecha_vacunacion',
+                'lote',
+                'observacion'
+            )
+        )
 
         fecha_descarga = datetime.today()
 
@@ -240,7 +354,9 @@ class LoginAfterPasswordChangeView(PasswordChangeView):
     def success_url(self):
         return reverse_lazy('inicio_sesion/')
 
-login_after_password_change = login_required(LoginAfterPasswordChangeView.as_view())
+login_after_password_change = (
+    login_required(LoginAfterPasswordChangeView.as_view())
+)
 
 
      
