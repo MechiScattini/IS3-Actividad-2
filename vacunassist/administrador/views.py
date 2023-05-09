@@ -41,13 +41,14 @@ class PersonalPasswordChangeView(PasswordChangeView):
 
     def form_valid(self, form):
         form.save()
-        # Updating the password logs out all other sessions for the user
-        # except the current one.
         update_session_auth_hash(self.request, form.user)
         
         user_email = Usuarios.objects.get(id=self.kwargs['pk']).email
         messages.success(self.request, 'La contraseña del usuario "%s" fue correctamente modificada.' % (user_email))
         return super().form_valid(form)
+        """Updating the password logs out all other sessions for the user
+        except the current one.
+        """
 
 class PersonalChangePassword(PersonalPasswordChangeView):
     form_class = PasswordChangeForm
@@ -124,9 +125,10 @@ def search_dates(request):
             df_solicitudes = pandas.DataFrame(solicitudes.filter(solicitud_aprobada=0).values())
             
 
-            # sales_df['fecha_estimada'] = sales_df['fecha_estimada']
-            # sales_df.rename({'customer_id': 'customer', 'salesman_id': 'salesman', 'id': 'sales_id'}, axis=1,
-            #                 inplace=True)
+            """sales_df['fecha_estimada'] = sales_df['fecha_estimada']
+            sales_df.rename({'customer_id': 'customer', 'salesman_id': 'salesman', 'id': 'sales_id'}, axis=1,
+                            inplace=True)
+            """
 
             chart_solicitudes_1 = get_chart_solicitud(df_solicitudes, 'Terminal')
             chart_solicitudes_2 = get_chart_solicitud(df_solicitudes, 'Cementerio')

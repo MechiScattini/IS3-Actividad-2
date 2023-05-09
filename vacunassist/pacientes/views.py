@@ -174,8 +174,9 @@ class cambiarPassword(PasswordChangeView):
  
 @login_required(login_url='/pacientes/login_error/')
 def editar_perfil(request):
-    # dictionary for initial data with
-    # field names as keys
+    """dictionary for initial data with
+    field names as keys
+    """
     context ={}
  
     user = request.user.id
@@ -187,8 +188,9 @@ def editar_perfil(request):
     form = UserUpdateForm(request.POST or None , request.FILES , instance = perfil)
 
 
-    # save the data from the form and
-    # redirect to detail_view
+    """save the data from the form and
+    redirect to detail_view
+    """
     if form.is_valid():
 
         perfil.sexo = form.cleaned_data.get('sexo')
@@ -264,9 +266,10 @@ class restPasswordConfirm(PasswordResetConfirmView):
       form_class = SetPasswordForm
 
                 
-#class restPassword(PasswordResetView):
- #    form_class = PasswordResetForm
-  #   success_url ="/pacientes/restablecer-contrasenia-hecho/"     
+"""class restPassword(PasswordResetView):
+    form_class = PasswordResetForm
+    success_url ="/pacientes/restablecer-contrasenia-hecho/"     
+"""
 
 def restDone(request):
     

@@ -35,8 +35,9 @@ def get_graph():
 def get_chart_solicitud(data, centro, **kwargs):
     pyplot.switch_backend('AGG')
     pyplot.figure(figsize=(10, 4))
-    # fig = pyplot.figure(figsize=(12, 4))
-    # key = get_key(results_by)
+    """fig = pyplot.figure(figsize=(12, 4))
+    key = get_key(results_by)
+    """
 
     nombres_vacuna = {
         1 : 'Covid (1ra)',
@@ -89,8 +90,9 @@ def get_chart_solicitud(data, centro, **kwargs):
 def get_chart_turnos(data, centro, **kwargs):
     pyplot.switch_backend('AGG')
     pyplot.figure(figsize=(10, 4))
-    # fig = pyplot.figure(figsize=(12, 4))
-    # key = get_key(results_by)
+    """fig = pyplot.figure(figsize=(12, 4))
+    key = get_key(results_by)
+    """
 
     nombres_vacuna = {
         1 : 'Covid (1ra)',

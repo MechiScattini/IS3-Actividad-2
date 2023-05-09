@@ -95,8 +95,9 @@ class PacienteAdmin(admin.ModelAdmin):
 
     @admin.display(description='Acciones')
     def boton(self, obj):
-        # el parámetro 'obj.pk' es el id del objeto dentro de la línea, hay que pasarlo en
-        # el link para saber qué objeto se va a usar, estos botones son de ejemplo y hacen lo mismo
+        """el parámetro 'obj.pk' es el id del objeto dentro de la línea, hay que pasarlo en
+        el link para saber qué objeto se va a usar, estos botones son de ejemplo y hacen lo mismo
+        """
 
         render_action_buttons = render_to_string('admin/paciente_action_buttons.html', {'pk' : obj.pk})
         return mark_safe(render_action_buttons)
@@ -157,8 +158,9 @@ class SolicitudesNoRiesgoAdmin(admin.ModelAdmin):
 
     @admin.display(description='Acciones')
     def boton(self, obj):
-        # el parámetro 'obj.pk' es el id del objeto dentro de la línea, hay que pasarlo en
-        # el link para saber qué objeto se va a usar, estos botones son de ejemplo y hacen lo mismo
+        """el parámetro 'obj.pk' es el id del objeto dentro de la línea, hay que pasarlo en
+        el link para saber qué objeto se va a usar, estos botones son de ejemplo y hacen lo mismo
+        """
 
         render_action_buttons = render_to_string('admin/pacientes_actions_buttons.html', {'pk' : obj.pk})
         return mark_safe(render_action_buttons)
@@ -241,9 +243,10 @@ class SolicitudesRiesgoAdmin(admin.ModelAdmin):
     
     @admin.display(description='Acciones')
     def boton(self, obj):
-        # el parámetro 'obj.pk' es el id del objeto dentro de la línea, hay que pasarlo en
-        # el link para saber qué objeto se va a usar, estos botones son de ejemplo y hacen lo mismo
-
+        """el parámetro 'obj.pk' es el id del objeto dentro de la línea, hay que pasarlo en
+        el link para saber qué objeto se va a usar, estos botones son de ejemplo y hacen lo mismo
+        """
+        
       render_action_buttons = render_to_string('admin/pacientes_actions_buttons.html', {'pk' : obj.pk})
       return mark_safe(render_action_buttons)
   

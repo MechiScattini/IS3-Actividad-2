@@ -71,8 +71,9 @@ class PersonalChangeForm(forms.ModelForm):
 
     # redefinir este método para que se pueda actualizar sin problemas
     def save(self, commit=True):
-        # if not commit:
-        #     raise NotImplementedError("Can't create User and UserProfile without database save")
+        """if not commit:
+            raise NotImplementedError("Can't create User and UserProfile without database save")
+        """
         user = super(PersonalChangeForm, self).save(commit=False)
         user.tipo_usuario = 'personal'
         user.email = self.cleaned_data['email']
@@ -175,8 +176,9 @@ class PersonalSignUpForm(UserCreationForm):
         email.send(fail_silently=False)
 
     def save(self, commit=True):
-        # if not commit:
-        #     raise NotImplementedError("Can't create User and UserProfile without database save")
+        """if not commit:
+            raise NotImplementedError("Can't create User and UserProfile without database save")
+        """
         user = super(PersonalSignUpForm, self).save(commit=True)
         user.tipo_usuario = 'personal'
         user.save()

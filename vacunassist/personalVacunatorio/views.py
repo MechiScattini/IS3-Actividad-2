@@ -244,27 +244,27 @@ def vacunacion_exitosa(request, **kwargs):
     return render(request, 'personalVacunatorio/devolucion.html', context)
     
 
- # def vacunacion_exitosa(request, **kwargs):
+ """def vacunacion_exitosa(request, **kwargs):
 
-#     vacuna = VacunasDetalles.objects.get(nombre=kwargs['vacuna_nombre'])
-#     paciente = PacientesDetalles.objects.get(dni=kwargs['paciente_dni'])
+    vacuna = VacunasDetalles.objects.get(nombre=kwargs['vacuna_nombre'])
+    paciente = PacientesDetalles.objects.get(dni=kwargs['paciente_dni'])
     
-#     turno = PacientesTurnos.objects.get(turno_id = kwargs['turno_id'])
-#     turno.turno_pendiente = False
-#     turno.turno_completado = True
-#     turno.save()
+    turno = PacientesTurnos.objects.get(turno_id = kwargs['turno_id'])
+    turno.turno_pendiente = False
+    turno.turno_completado = True
+    turno.save()
     
-#     vacuna_aplicada = VacunasAplicadas(
-#         vacuna_id = vacuna.vacuna_id,
-#         fecha_vacunacion = datetime.today().strftime('%Y-%m-%d'),
-#         paciente_id = paciente.paciente_id,
-#     )
-#     vacuna_aplicada.save()
+    vacuna_aplicada = VacunasAplicadas(
+        vacuna_id = vacuna.vacuna_id,
+        fecha_vacunacion = datetime.today().strftime('%Y-%m-%d'),
+        paciente_id = paciente.paciente_id,
+    )
+    vacuna_aplicada.save()
     
-#     form = devolucionForm()  
-#     context = {'vacuna_aplicada': vacuna_aplicada.id, 'form': form} 
-#     return render(request, 'personalVacunatorio/devolucion.html', context)
-
+    form = devolucionForm()  
+    context = {'vacuna_aplicada': vacuna_aplicada.id, 'form': form} 
+    return render(request, 'personalVacunatorio/devolucion.html', context)
+"""
 
 def vacunacion_fallida(request, **kwargs): #Inasistencia
 
@@ -324,9 +324,10 @@ class restPasswordConfirm(PasswordResetConfirmView):
       form_class = SetPasswordForm
 
                 
-#class restPassword(PasswordResetView):
- #    form_class = PasswordResetForm
-  #   success_url ="/pacientes/restablecer-contrasenia-hecho/"     
+"""class restPassword(PasswordResetView):
+    form_class = PasswordResetForm
+    success_url ="/pacientes/restablecer-contrasenia-hecho/"     
+"""
 
 def restDone(request):
     

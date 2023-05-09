@@ -17,8 +17,9 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
+"""Quick-start development settings - unsuitable for production
+See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
+"""
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-pvlc*95j(!(iy6g9)85yo=c+=x!i7+0)_fwz@^bp4#v&7nmxp&'
@@ -79,8 +80,9 @@ TEMPLATES = [
 WSGI_APPLICATION = 'vacunassist.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/4.0/ref/settings/#databases
+"""Database
+https://docs.djangoproject.com/en/4.0/ref/settings/#databases
+"""
 
 DATABASES = {
     'default': {
@@ -90,29 +92,33 @@ DATABASES = {
 }
 
 
-# Password validation
-# https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
+"""Password validation
+https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
+"""
 
 AUTH_PASSWORD_VALIDATORS = [
-    # {
-    #     'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    # },
+    """ {
+        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+    },
+    """
     {
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
     },
-    # {
-    #     'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    # },
-    # {
-    #     'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    # },
+    """ {
+        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+    },
+    """
 ]
 
 AUTH_USER_MODEL = 'pacientes.Usuarios'
 
 
-# Internationalization
-# https://docs.djangoproject.com/en/4.0/topics/i18n/
+""" Internationalization
+https://docs.djangoproject.com/en/4.0/topics/i18n/
+"""
 
 LANGUAGE_CODE = 'es'
 
@@ -123,20 +129,22 @@ USE_I18N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/4.0/howto/static-files/
-
+"""Static files (CSS, JavaScript, Images)
+https://docs.djangoproject.com/en/4.0/howto/static-files/
+"""
 MEDIA_URL = '/media/'
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
-    # Put strings here, like "/home/html/static" or "C:/www/django/static".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
+   """Put strings here, like "/home/html/static" or "C:/www/django/static".
+    Always use forward slashes, even on Windows.
+    Don't forget to use absolute paths, not relative paths.
+    """
     os.path.join(BASE_DIR, 'static'),
 )
-# Default primary key field type
-# https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
+"""Default primary key field type
+https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
+"""
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
