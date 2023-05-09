@@ -256,7 +256,7 @@ def solicitud_fiebre_amarilla(request):
    
 class cambiarPassword(PasswordChangeView):
       form_class = PasswordChangeForm
-      success_url ="/pacientes/mi_perfil/"
+      success_url = "/pacientes/mi_perfil/"
 
  
 @login_required(login_url='/pacientes/login_error/')
@@ -264,7 +264,7 @@ def editar_perfil(request):
     """dictionary for initial data with
     field names as keys
     """
-    context ={}
+    context = {}
  
     user = request.user.id
 
@@ -373,7 +373,7 @@ def restPassword(request):
                 messages.error(request, " El mail ingresado no se encuentra registrado en el sistema ")  
         else: 
               messages.error(request, " No existe ese mail") 
-    form =  PasswordResetForm()     
+    form = PasswordResetForm()     
     context = {'form' : form}
     return render(request, 'pacientes/restablecer-contrasenia.html', context)     
      

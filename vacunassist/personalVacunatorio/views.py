@@ -103,8 +103,8 @@ def listar_historial_atendidos(request):
 
     turnos = PacientesTurnos.objects.filter(
                 turno_completado = 1,
-                fecha_confirmada=today,
-                solicitud_id__centro_vacunatorio=centro_vacunatorio)\
+                fecha_confirmada = today,
+                solicitud_id__centro_vacunatorio = centro_vacunatorio)\
                     .values('turno_id',
                         'solicitud_id__vacuna_id__nombre',
                         'solicitud_id__paciente_id__dni',
