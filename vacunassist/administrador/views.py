@@ -60,7 +60,7 @@ def admin_asignar_turno(request,**kwargs):
     solicitud = PacientesSolicitudes.objects.get(solicitud_id=kwargs['pk'])
     confirmed_date = solicitud.fecha_estimada
     turno = PacientesTurnos(
-       solicitud=solicitud,
+       solicitud = solicitud,
        turno_perdido    = 0,
        turno_pendiente  = 1,
        turno_completado = 0,
