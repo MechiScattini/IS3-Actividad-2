@@ -63,56 +63,56 @@ class UserSignUpForm(UserCreationForm):
     ]
 
     nombre = forms.CharField(
-        max_length=100,
-        required=True,
-        widget=forms.TextInput(attrs = {'class' : 'form-control','placeholder' : 'Nombre'}))
+        max_length = 100,
+        required = True,
+        widget = forms.TextInput(attrs = {'class' : 'form-control','placeholder' : 'Nombre'}))
     apellido = forms.CharField(
-        max_length=100,
-        required=True,
-        widget=forms.TextInput(attrs = {'class' : 'form-control','placeholder' : 'Apellido'}))
+        max_length = 100,
+        required = True,
+        widget = forms.TextInput(attrs = {'class' : 'form-control','placeholder' : 'Apellido'}))
     email = forms.EmailField(
-        max_length=200,
-        required=True,
-        widget=forms.EmailInput(attrs={'class' : 'form-control', 'placeholder' : 'Email'}))
+        max_length = 200,
+        required = True,
+        widget = forms.EmailInput(attrs={'class' : 'form-control', 'placeholder' : 'Email'}))
 
     dni = forms.IntegerField(
-        label='DNI',
-        required=True,
-        widget=forms.NumberInput(attrs = {'class' : 'form-control','placeholder' : 'DNI'}))
+        label = 'DNI',
+        required = True,
+        widget = forms.NumberInput(attrs = {'class' : 'form-control','placeholder' : 'DNI'}))
     sexo = forms.ChoiceField(
-        choices=generos,
-        required=True,
-        label="Género",
-        widget=forms.Select(attrs={'class' : 'form-control', 'placeholder' : 'Sexo'}))
+        choices = generos,
+        required = True,
+        label = "Género",
+        widget = forms.Select(attrs={'class' : 'form-control', 'placeholder' : 'Sexo'}))
     dia_nacimiento = forms.IntegerField(
-        label='Día',
-        widget=forms.NumberInput(attrs = {'min' : 1,'class' : 'form-control','placeholder' : 'Día'}))
+        label = 'Día',
+        widget = forms.NumberInput(attrs = {'min' : 1,'class' : 'form-control','placeholder' : 'Día'}))
     mes_nacimiento = forms.ChoiceField(
-        choices=meses,
-        required=True,
-        label="Mes",
-        widget=forms.Select(attrs={'class' : 'form-control','placeholder' : 'Mes'}))
+        choices = meses,
+        required = True,
+        label = "Mes",
+        widget = forms.Select(attrs={'class' : 'form-control','placeholder' : 'Mes'}))
     ano_nacimiento = forms.IntegerField(
         label='Año',
         widget=forms.NumberInput(attrs = {'min' : 1,'class' : 'form-control','placeholder' : 'Año'})
     )
     centro_vacunatorio = forms.ChoiceField(
-        choices=centros,
-        required=True,
-        label="Centro vacunatorio",
-        widget=forms.Select(attrs = {'class' : 'form-control','placeholder' : 'Centro Vacunatorio'})
+        choices = centros,
+        required = True,
+        label = "Centro vacunatorio",
+        widget = forms.Select(attrs = {'class' : 'form-control','placeholder' : 'Centro Vacunatorio'})
     )
     es_paciente_riesgo = forms.BooleanField(required=False, label='Respecto a la vacuna COVID-19, ¿es paciente de riesgo?')
 
     vacuna_covid_1 = forms.BooleanField(
-        required=False,
-        label='COVID-19 (1ra dosis)',
-        widget=forms.CheckboxInput(attrs={'OnClick': 'disableCovidField1();'})
+        required = False,
+        label = 'COVID-19 (1ra dosis)',
+        widget = forms.CheckboxInput(attrs={'OnClick': 'disableCovidField1();'})
     )
     fecha_vacunacion_covid_1 = forms.DateField(
-        required=False,
-        label='Fecha aplicación',
-        widget=forms.DateInput(attrs = {'disabled' : 'true', 'type': 'date', 'class' : 'form-control', 'placeholder' : 'Fecha Vacunación'})
+        required = False,
+        label = 'Fecha aplicación',
+        widget = forms.DateInput(attrs = {'disabled' : 'true', 'type': 'date', 'class' : 'form-control', 'placeholder' : 'Fecha Vacunación'})
     )
 
     vacuna_covid_2 = forms.BooleanField(
@@ -121,9 +121,9 @@ class UserSignUpForm(UserCreationForm):
         widget=forms.CheckboxInput(attrs={'disabled' : 'true', 'OnClick': 'disableCovidField2();'})
     )
     fecha_vacunacion_covid_2 = forms.DateField(
-        required=False,
-        label='Fecha aplicación',
-        widget=forms.DateInput(attrs = {'disabled' : 'true', 'type': 'date', 'class' : 'form-control', 'placeholder' : 'Fecha Vacunación'})
+        required = False,
+        label = 'Fecha aplicación',
+        widget = forms.DateInput(attrs = {'disabled' : 'true', 'type': 'date', 'class' : 'form-control', 'placeholder' : 'Fecha Vacunación'})
     )
 
     vacuna_gripe = forms.BooleanField(
@@ -132,19 +132,19 @@ class UserSignUpForm(UserCreationForm):
         widget=forms.CheckboxInput(attrs={'OnClick': 'disableGripeField();'})
     )
     fecha_vacunacion_gripe = forms.DateField(
-        required=False,
-        label='Fecha aplicación',
-        widget=forms.DateInput(attrs = {'disabled' : 'true', 'type': 'date', 'class': 'form-control','placeholder' : 'Fecha Vacunación'})
+        required = False,
+        label = 'Fecha aplicación',
+        widget = forms.DateInput(attrs = {'disabled' : 'true', 'type': 'date', 'class': 'form-control','placeholder' : 'Fecha Vacunación'})
     )
 
     vacuna_fa = forms.BooleanField(
-        required=False,
-        label='FIEBRE AMARILLA', widget=forms.CheckboxInput(attrs={'OnClick': 'disableFAField();'})
+        required = False,
+        label = 'FIEBRE AMARILLA', widget=forms.CheckboxInput(attrs={'OnClick': 'disableFAField();'})
     )
     fecha_vacunacion_fa = forms.DateField(
-        required=False,
-        label='Fecha aplicación',
-        widget=forms.DateInput(attrs = {'disabled' : 'true', 'type': 'date', 'class' : 'form-control','placeholder' : 'Fecha Vacunación'})
+        required = False,
+        label = 'Fecha aplicación',
+        widget = forms.DateInput(attrs = {'disabled' : 'true', 'type': 'date', 'class' : 'form-control','placeholder' : 'Fecha Vacunación'})
     )
 
     class Meta:
@@ -203,7 +203,7 @@ class UserSignUpForm(UserCreationForm):
         '''Se guardan detalles e información personal del usuario paciente registrado.'''
 
         patient_details = PacientesDetalles(
-            user=user,
+            user = user,
             token = token,
             dni = self.cleaned_data['dni'],
             sexo = self.cleaned_data['sexo'],
@@ -371,17 +371,17 @@ class UserSignUp1Form(UserCreationForm):
     """
 
     nombre = forms.CharField(
-        max_length=100,
-        required=True,
-        widget=forms.TextInput(attrs = {'class' : 'form-control','placeholder' : 'Nombre'}))
+        max_length = 100,
+        required = True,
+        widget = forms.TextInput(attrs = {'class' : 'form-control','placeholder' : 'Nombre'}))
     apellido = forms.CharField(
-        max_length=100,
-        required=True,
-        widget=forms.TextInput(attrs = {'class' : 'form-control','placeholder' : 'Apellido'}))
+        max_length = 100,
+        required = True,
+        widget = forms.TextInput(attrs = {'class' : 'form-control','placeholder' : 'Apellido'}))
     email = forms.EmailField(
-        max_length=200,
-        required=True,
-        widget=forms.EmailInput(attrs={'class' : 'form-control', 'placeholder' : 'Email'}))
+        max_length = 200,
+        required = True,
+        widget = forms.EmailInput(attrs={'class' : 'form-control', 'placeholder' : 'Email'}))
 
 
     class Meta:
