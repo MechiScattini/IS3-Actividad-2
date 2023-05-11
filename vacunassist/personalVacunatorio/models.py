@@ -10,32 +10,32 @@ class PersonalDetalles(models.Model):
 
     nombre = models.CharField(
         'Nombre',
-        max_length=100,
-        blank=False,
-        null=False,
-        default='m'
+        max_length = 100,
+        blank = False,
+        null = False,
+        default = 'm'
     )
     apellido = models.CharField(
         'Apellido',
-        max_length=100,
-        blank=False,
-        null=False,
-        default='m'
+        max_length = 100,
+        blank = False,
+        null = False,
+        default = 'm'
     )
     numero_telefono = models.CharField(
         'Número Teléfono',
-        max_length=20
+        max_length = 20
     )
     fecha_nacimiento = models.DateField(
         'Fecha de Nacimiento',
-        blank=False,
-        null=False
+        blank = False,
+        null = False
     )
     centro_vacunatorio = models.CharField(
         'Centro Vacunatorio',
-        max_length=50,
-        blank=False,
-        null=False
+        max_length = 50,
+        blank = False,
+        null = False
     )
     
     class Meta:
