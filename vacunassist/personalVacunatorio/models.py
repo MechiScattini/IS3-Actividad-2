@@ -5,8 +5,8 @@ from pacientes.models import Usuarios
 
 class PersonalDetalles(models.Model):
 
-    user = models.OneToOneField(Usuarios, on_delete=models.CASCADE)
-    personal_id = models.AutoField(primary_key=True)
+    user = models.OneToOneField(Usuarios, on_delete = models.CASCADE)
+    personal_id = models.AutoField(primary_key = True)
 
     nombre = models.CharField(
         'Nombre',

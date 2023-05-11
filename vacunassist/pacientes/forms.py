@@ -424,21 +424,21 @@ class UserSignUpForm(UserCreationForm):
 
     def clean_dni(self):
         dni = self.cleaned_data.get('dni')
-        if PacientesDetalles.objects.filter(dni=dni).exists():
+        if PacientesDetalles.objects.filter(dni = dni).exists():
             raise forms.ValidationError('Ya existe un usuario con este DNI.')
         return dni
 
     def validar_email(self, email):
-        if Usuarios.objects.filter(email=email).exists():
+        if Usuarios.objects.filter(email = email).exists():
             raise forms.ValidationError('Ya existe un usuario con este Email.')
         return email
     
-    def save(self, commit=True):
+    def save(self, commit = True):
         if not commit:
             raise NotImplementedError(
                 "Can't create User and UserProfile without database save"
             )
-        user = super(UserSignUpForm, self).save(commit=True)
+        user = super(UserSignUpForm, self).save(commit = True)
         user.tipo_usuario = 'paciente'
         user.save()
         token = self.generate_token()
@@ -466,7 +466,7 @@ class UserUpdateForm(forms.ModelForm):
         required = True,
         label = "Género",
         widget = forms.Select(
-            attrs={'class' : 'form-control', 'placeholder' : 'Sexo'}
+            attrs = {'class' : 'form-control', 'placeholder' : 'Sexo'}
         )
     )
     centro_vacunatorio = forms.ChoiceField(

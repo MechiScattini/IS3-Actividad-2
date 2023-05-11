@@ -34,7 +34,7 @@ class PersonalAdmin(admin.ModelAdmin):
     list_display_links = None
 
 
-    @admin.display(description='Acciones')
+    @admin.display(description = 'Acciones')
     def boton(self, obj):
         """el parámetro 'obj.pk' es el id del objeto dentro de la línea,
         hay que pasarlo en el link para saber qué objeto se va a usar,
@@ -47,32 +47,32 @@ class PersonalAdmin(admin.ModelAdmin):
         )
         return mark_safe(render_action_buttons)
 
-    @admin.display(description='Nombre')
+    @admin.display(description = 'Nombre')
     def nombre(self, obj):
         return obj.personaldetalles.nombre
 
-    @admin.display(description='Apellido')
+    @admin.display(description = 'Apellido')
     def apellido(self, obj):
         return obj.personaldetalles.apellido
 
-    @admin.display(description='Número Teléfono')
+    @admin.display(description = 'Número Teléfono')
     def numero_telefono(self, obj):
         return obj.personaldetalles.numero_telefono
 
-    @admin.display(description='Fecha Nacimiento')
+    @admin.display(description = 'Fecha Nacimiento')
     def fecha_nacimiento(self, obj):
         return obj.personaldetalles.fecha_nacimiento
 
-    @admin.display(description='Centro Vacunatorio')
+    @admin.display(description = 'Centro Vacunatorio')
     def centro_vacunatorio(self, obj):
         return obj.personaldetalles.centro_vacunatorio
 
 
     # función para no permitir que se elimine un elemento
-    def has_delete_permission(self, request, obj=None):
+    def has_delete_permission(self, request, obj = None):
         return False
 
-    def get_fields(self, request, obj=None):
+    def get_fields(self, request, obj = None):
         if obj is None:
             fields = (
                 ('nombre', 'apellido',),
@@ -90,7 +90,7 @@ class PersonalAdmin(admin.ModelAdmin):
             )
         return fields
 
-    def get_form(self, request, obj=None, **kwargs):
+    def get_form(self, request, obj = None, **kwargs):
         if obj is None:
             # formulario para agregar un nuevo usuario personal
             kwargs['form'] = PersonalSignUpForm
@@ -100,7 +100,7 @@ class PersonalAdmin(admin.ModelAdmin):
             kwargs['form'] = PersonalChangeForm
             form = super().get_form(request, obj, **kwargs)
 
-            personal_user = PersonalDetalles.objects.get(user=obj.id)
+            personal_user = PersonalDetalles.objects.get(user = obj.id)
             form.base_fields['nombre'].initial = personal_user.nombre
             form.base_fields['apellido'].initial = personal_user.apellido
             (form
@@ -131,7 +131,7 @@ class PersonalAdmin(admin.ModelAdmin):
         return queryset, use_distinct
 
 
-    @admin.action(description='Eliminar usuarios seleccionados')
+    @admin.action(description = 'Eliminar usuarios seleccionados')
     def delete_multiple_users(self, request, queryset):
 
         if 'apply' in request.POST:

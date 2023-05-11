@@ -20,8 +20,8 @@ def home_admin(request):
 
 
 def ver_vacunas(request,*args,**kwargs):
-    paciente = PacientesDetalles.objects.get(user=kwargs['pk'])
-    vacunas = VacunasAplicadas.objects.filter(paciente_id__user=kwargs['pk'])\
+    paciente = PacientesDetalles.objects.get(user = kwargs['pk'])
+    vacunas = VacunasAplicadas.objects.filter(paciente_id__user = kwargs['pk'])\
         .values('vacuna_id__nombre', 'fecha_vacunacion', 'vacuna_id')
 
     context = {
@@ -34,7 +34,7 @@ def ver_vacunas(request,*args,**kwargs):
 
 class PersonalPasswordChangeView(PasswordChangeView):
     def get_form_kwargs(self):
-        personal_user = Usuarios.objects.get(id=self.kwargs['pk'])
+        personal_user = Usuarios.objects.get(id = self.kwargs['pk'])
         kwargs = super().get_form_kwargs()
         kwargs["user"] = personal_user
         return kwargs
@@ -43,7 +43,7 @@ class PersonalPasswordChangeView(PasswordChangeView):
         form.save()
         update_session_auth_hash(self.request, form.user)
         
-        user_email = Usuarios.objects.get(id=self.kwargs['pk']).email
+        user_email = Usuarios.objects.get(id = self.kwargs['pk']).email
         messages.success(self.request, 'La contraseña del usuario "%s" fue correctamente modificada.' % (user_email))
         return super().form_valid(form)
         """Updating the password logs out all other sessions for the user
@@ -57,7 +57,7 @@ class PersonalChangePassword(PersonalPasswordChangeView):
     
     
 def admin_asignar_turno(request,**kwargs):
-    solicitud = PacientesSolicitudes.objects.get(solicitud_id=kwargs['pk'])
+    solicitud = PacientesSolicitudes.objects.get(solicitud_id = kwargs['pk'])
     confirmed_date = solicitud.fecha_estimada
     turno = PacientesTurnos(
        solicitud = solicitud,
@@ -113,16 +113,16 @@ def search_dates(request):
         date_to = request.POST.get('date_to')
         date_from = request.POST.get('date_from')
 
-        turnos = PacientesTurnos.objects.filter(fecha_confirmada__lte=date_to, fecha_confirmada__gte=date_from, turno_pendiente=1)
-        solicitudes = PacientesSolicitudes.objects.filter(fecha_estimada__lte=date_to, fecha_estimada__gte=date_from)
+        turnos = PacientesTurnos.objects.filter(fecha_confirmada__lte = date_to, fecha_confirmada__gte = date_from, turno_pendiente=1)
+        solicitudes = PacientesSolicitudes.objects.filter(fecha_estimada__lte=date_to, fecha_estimada__gte = date_from)
 
         if len(solicitudes) > 0:
             df_solicitudes = pandas.DataFrame(solicitudes.values())
 
             df_turnos = pandas.DataFrame(turnos.values())\
-                            .merge(df_solicitudes, on='solicitud_id', how='left')
+                            .merge(df_solicitudes, on = 'solicitud_id', how = 'left')
 
-            df_solicitudes = pandas.DataFrame(solicitudes.filter(solicitud_aprobada=0).values())
+            df_solicitudes = pandas.DataFrame(solicitudes.filter(solicitud_aprobada = 0).values())
             
 
             """sales_df['fecha_estimada'] = sales_df['fecha_estimada']

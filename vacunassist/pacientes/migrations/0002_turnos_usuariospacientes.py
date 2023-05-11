@@ -11,28 +11,28 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Turnos',
-            fields=[
+            name = 'Turnos',
+            fields = [
             ],
-            options={
+            options = {
                 'verbose_name': 'turnos de pacientes',
                 'verbose_name_plural': 'Turnos de Pacientes',
                 'proxy': True,
                 'indexes': [],
                 'constraints': [],
             },
-            bases=('pacientes.pacientesturnos',),
+            bases = ('pacientes.pacientesturnos',),
         ),
         migrations.CreateModel(
-            name='UsuariosPacientes',
-            fields=[
+            name = 'UsuariosPacientes',
+            fields = [
             ],
-            options={
+            options = {
                 'verbose_name_plural': 'Pacientes',
                 'proxy': True,
                 'indexes': [],
                 'constraints': [],
             },
-            bases=('pacientes.usuarios',),
+            bases = ('pacientes.usuarios',),
         ),
     ]

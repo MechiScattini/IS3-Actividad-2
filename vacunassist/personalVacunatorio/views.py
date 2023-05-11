@@ -23,7 +23,7 @@ def login_error_personal(request):
     return HttpResponse('Usuario no logueado.')
 
 
-@login_required(login_url='/personal_vacunatorio/login_error/')
+@login_required(login_url = '/personal_vacunatorio/login_error/')
 def logout_personal(request):
     personal_logout(request)
 
@@ -32,11 +32,11 @@ def logout_personal(request):
 
 def login_personal(request):
     if request.method == "POST":
-       form = PersonalSignIn(data=request.POST)
+       form = PersonalSignIn(data = request.POST)
        if form.is_valid(): 
             mail = form.cleaned_data.get("email")
             contraseña = form.cleaned_data.get("password")
-            user = authenticate(request, email=mail, password=contraseña)
+            user = authenticate(request, email = mail, password=contraseña)
             if user is not None and user.tipo_usuario == 'personal':
                 personal_auth_login(request, user)
                 return redirect('/personal_vacunatorio/')
@@ -52,7 +52,7 @@ def login_personal(request):
     return render(request, 'personalVacunatorio/login.html', context)
 
 
-@login_required(login_url='/personal_vacunatorio/login_error/')
+@login_required(login_url = '/personal_vacunatorio/login_error/')
 def listar_turnos_diarios(request):
 
     today = datetime.today().strftime('%Y-%m-%d')
@@ -66,7 +66,7 @@ def listar_turnos_diarios(request):
     turnos = PacientesTurnos.objects.filter(
                 turno_pendiente = 1,
                 fecha_confirmada=today,
-                solicitud_id__centro_vacunatorio=centro_vacunatorio)\
+                solicitud_id__centro_vacunatorio = centro_vacunatorio)\
                     .values('turno_id',
                         'solicitud_id__vacuna_id__nombre',
                         'solicitud_id__paciente_id__dni',
@@ -115,7 +115,7 @@ def listar_turnos_diarios(request):
     )
 
 
-@login_required(login_url='/personal_vacunatorio/login_error/')
+@login_required(login_url = '/personal_vacunatorio/login_error/')
 def listar_historial_atendidos(request):
 
     today = datetime.today().strftime('%Y-%m-%d')
@@ -184,7 +184,7 @@ def listar_historial_ausentes(request):
     turnos = PacientesTurnos.objects.filter(
                 turno_perdido = 1,
                 fecha_confirmada=today,
-                solicitud_id__centro_vacunatorio=centro_vacunatorio)\
+                solicitud_id__centro_vacunatorio = centro_vacunatorio)\
                     .values('turno_id',
                         'solicitud_id__vacuna_id__nombre',
                         'solicitud_id__paciente_id__dni',
@@ -369,14 +369,14 @@ login_after_password_change = login_required(
      
 def restPasswordPer(request):   
     if request.method == "POST":
-        form = PasswordResetForm(data=request.POST)
+        form = PasswordResetForm(data = request.POST)
         if form.is_valid(): 
             mail = form.cleaned_data.get("email")
-            if Usuarios.objects.filter(email=mail).exists():
+            if Usuarios.objects.filter(email = mail).exists():
                 form.save(
-                    from_email='blabla@blabla.com',
-                    email_template_name='registration/password_reset_email.html',
-                    request=request)
+                    from_email = 'blabla@blabla.com',
+                    email_template_name = 'registration/password_reset_email.html',
+                    request = request)
                 return redirect('/personal_vacunatorio/restablecer-contrasenia-hecho')          
             else:
                 messages.error(

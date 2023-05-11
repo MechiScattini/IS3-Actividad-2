@@ -26,19 +26,19 @@ def login_error(request):
     return HttpResponse('Usuario no logueado.')
 
 
-@login_required(login_url='/pacientes/login_error/')
+@login_required(login_url = '/pacientes/login_error/')
 def inicio_pacientes(request):
     return HttpResponse('Página inicio de pacientes.')
 
 
 def login(request):   
     if request.method == "POST":
-        form = UserSign(data=request.POST)
+        form = UserSign(data = request.POST)
         if form.is_valid(): 
             mail = form.cleaned_data.get("email")
             contraseña = form.cleaned_data.get("password")
             token = form.cleaned_data.get("token")
-            user = authenticate(request, email=mail, password=contraseña)
+            user = authenticate(request, email = mail, password = contraseña)
             if user is not None and (
                     PacientesDetalles.objects.filter(
                         token=token,
@@ -110,20 +110,20 @@ def signup2(request):
             return render(request, 'pacientes/signup2.html', context)
 
 
-@login_required(login_url='/pacientes/login_error/')
+@login_required(login_url = '/pacientes/login_error/')
 def view_profile(request):
-    paciente = PacientesDetalles.objects.get(user_id=request.user.id)
+    paciente = PacientesDetalles.objects.get(user_id = request.user.id)
     return render(request, "pacientes/view_profile.html/", {"datos": paciente})
 
 
-@login_required(login_url='/pacientes/login_error/')
+@login_required(login_url = '/pacientes/login_error/')
 def listar_vacunas(request):
-    paciente = PacientesDetalles.objects.get(user_id=request.user.id)
+    paciente = PacientesDetalles.objects.get(user_id = request.user.id)
 
     vacunas = (
         VacunasAplicadas
         .objects
-        .filter(paciente_id=paciente.paciente_id)
+        .filter(paciente_id = paciente.paciente_id)
         .values('vacuna_id__nombre', 'fecha_vacunacion', 'vacuna_id')
     )
 
@@ -134,14 +134,14 @@ def listar_vacunas(request):
     )
 
 
-@login_required(login_url='/pacientes/login_error/')
+@login_required(login_url = '/pacientes/login_error/')
 def listar_solicitudes(request):
-    paciente = PacientesDetalles.objects.get(user_id=request.user.id)
+    paciente = PacientesDetalles.objects.get(user_id = request.user.id)
 
     solicitudes = (
         PacientesSolicitudes
         .objects
-        .filter(paciente_id=paciente.paciente_id)
+        .filter(paciente_id = paciente.paciente_id)
         .values('vacuna_id__nombre', 'fecha_solicitud', 'solicitud_aprobada')
     )
     return render(
@@ -151,16 +151,16 @@ def listar_solicitudes(request):
     )
 
 
-@login_required(login_url='/pacientes/login_error/')
+@login_required(login_url = '/pacientes/login_error/')
 def listar_turnos(request):
-    paciente = PacientesDetalles.objects.get(user_id=request.user.id)
+    paciente = PacientesDetalles.objects.get(user_id = request.user.id)
 
     turnos = (
         PacientesTurnos
         .objects
         .filter(
-            solicitud_id__paciente_id=paciente.paciente_id,
-            solicitud_id__solicitud_aprobada=True)
+            solicitud_id__paciente_id = paciente.paciente_id,
+            solicitud_id__solicitud_aprobada = True)
         .values(
             'solicitud_id__vacuna_id__nombre',
             'fecha_confirmada',
@@ -176,18 +176,18 @@ def listar_turnos(request):
     )
 
 
-@login_required(login_url='/pacientes/login_error/')
+@login_required(login_url = '/pacientes/login_error/')
 def solicitud_fiebre_amarilla(request):
 
-    paciente = PacientesDetalles.objects.get(user_id=request.user.id)
+    paciente = PacientesDetalles.objects.get(user_id = request.user.id)
     
     try:
         solicitud = (
             PacientesSolicitudes
             .objects
             .get(
-                paciente_id=paciente.paciente_id,
-                vacuna_id=4
+                paciente_id = paciente.paciente_id,
+                vacuna_id = 4
             )
         )
     except:
@@ -199,8 +199,8 @@ def solicitud_fiebre_amarilla(request):
         VacunasAplicadas
         .objects
         .filter(
-            paciente_id=paciente.paciente_id,
-            vacuna_id=4
+            paciente_id = paciente.paciente_id,
+            vacuna_id = 4
         )
         .exists()
     )
@@ -208,8 +208,8 @@ def solicitud_fiebre_amarilla(request):
         PacientesSolicitudes
         .objects
         .filter(
-            paciente_id=paciente.paciente_id,
-            vacuna_id=4)
+            paciente_id = paciente.paciente_id,
+            vacuna_id = 4)
         .exists()
     )
 
@@ -259,7 +259,7 @@ class cambiarPassword(PasswordChangeView):
       success_url = "/pacientes/mi_perfil/"
 
  
-@login_required(login_url='/pacientes/login_error/')
+@login_required(login_url = '/pacientes/login_error/')
 def editar_perfil(request):
     """dictionary for initial data with
     field names as keys
@@ -268,7 +268,7 @@ def editar_perfil(request):
  
     user = request.user.id
 
-    perfil = PacientesDetalles.objects.get(user_id=request.user.id) 
+    perfil = PacientesDetalles.objects.get(user_id = request.user.id) 
 
  
     # pass the object as instance in form
@@ -302,14 +302,14 @@ def editar_perfil(request):
 class descargar_comprobante(View):
     def get(self, request, *args, **kwargs):
 
-        paciente = PacientesDetalles.objects.get(user_id=request.user.id)
+        paciente = PacientesDetalles.objects.get(user_id = request.user.id)
 
         solicitud = (
             PacientesSolicitudes
             .objects
             .filter(
-                paciente_id=paciente.paciente_id,
-                vacuna_id=kwargs['vacuna_id']
+                paciente_id = paciente.paciente_id,
+                vacuna_id = kwargs['vacuna_id']
             )
             .values('centro_vacunatorio')
         )
@@ -317,8 +317,8 @@ class descargar_comprobante(View):
             VacunasAplicadas
             .objects
             .filter(
-                paciente_id=paciente.paciente_id,
-                vacuna_id=kwargs['vacuna_id']
+                paciente_id = paciente.paciente_id,
+                vacuna_id = kwargs['vacuna_id']
             )
             .values(
                 'vacuna_id__nombre',
@@ -340,9 +340,9 @@ class descargar_comprobante(View):
         template = get_template('pacientes/comprobante_vacunacion.html')
         html = template.render(context)
 
-        response = HttpResponse(content_type='application/pdf')
+        response = HttpResponse(content_type = 'application/pdf')
         # response['Content-Disposition'] = 'attachment; filename="report.pdf"'
-        pisaStatus = pisa.CreatePDF(html, dest=response)
+        pisaStatus = pisa.CreatePDF(html, dest = response)
 
         if pisaStatus.err:
             return HttpResponse('We had some errors <pre>' + html + '</pre>')
@@ -363,11 +363,11 @@ login_after_password_change = (
      
 def restPassword(request):   
     if request.method == "POST":
-        form = PasswordResetForm(data=request.POST)
+        form = PasswordResetForm(data = request.POST)
         if form.is_valid(): 
             mail = form.cleaned_data.get("email")
-            if Usuarios.objects.filter(email=mail).exists():
-                form.save(from_email='blabla@blabla.com', email_template_name='registration/password_reset_email.html', request=request)
+            if Usuarios.objects.filter(email = mail).exists():
+                form.save(from_email = 'blabla@blabla.com', email_template_name = 'registration/password_reset_email.html', request=request)
                 return redirect('/pacientes/restablecer-contrasenia-hecho')          
             else:
                 messages.error(request, " El mail ingresado no se encuentra registrado en el sistema ")  

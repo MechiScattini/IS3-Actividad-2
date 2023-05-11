@@ -35,20 +35,20 @@ class Usuarios(AbstractBaseUser):
 
     email = models.EmailField(
         'Mail',
-        unique=True,
-        max_length=254,
-        blank=True,
-        null=False
+        unique = True,
+        max_length = 254,
+        blank = True,
+        null = False
     )
-    is_active = models.BooleanField(default=True)
+    is_active = models.BooleanField(default = True)
     tipo_usuario = models.CharField(
         'Tipo de Usuario',
-        max_length=20,
-        blank=False,
-        null=False
+        max_length = 20,
+        blank = False,
+        null = False
     )
-    is_staff = models.BooleanField(default=False)
-    is_admin = models.BooleanField(default=False)
+    is_staff = models.BooleanField(default = False)
+    is_admin = models.BooleanField(default = False)
     objects = UsuariosManager()
 
     EMAIL_FIELD = 'email'
@@ -71,39 +71,39 @@ class Usuarios(AbstractBaseUser):
 
 class PacientesDetalles(models.Model):
 
-    user = models.OneToOneField(Usuarios, on_delete=models.CASCADE)
-    paciente_id = models.AutoField(primary_key=True)
+    user = models.OneToOneField(Usuarios, on_delete = models.CASCADE)
+    paciente_id = models.AutoField(primary_key = True)
     
-    dni = models.IntegerField('DNI', unique=True, blank=False, null=False)
-    token = models.IntegerField('Token', blank=False, null=False)
-    sexo = models.CharField('Sexo', max_length=20, blank=False, null=False)
+    dni = models.IntegerField('DNI', unique = True, blank = False, null = False)
+    token = models.IntegerField('Token', blank = False, null = False)
+    sexo = models.CharField('Sexo', max_length = 20, blank = False, null = False)
     nombre = models.CharField(
         'Nombre',
-        max_length=100,
-        blank=False,
-        null=False
+        max_length = 100,
+        blank = False,
+        null = False
     )
     apellido = models.CharField(
         'Apellido',
-        max_length=100,
-        blank=False,
-        null=False
+        max_length = 100,
+        blank = False,
+        null = False
     )
-    fecha_registro = models.DateTimeField(default=timezone.now)
+    fecha_registro = models.DateTimeField(default = timezone.now)
     fecha_nacimiento = models.DateField(
         'Fecha de Nacimiento',
-        blank=False,
-        null=False
+        blank = False,
+        null = False
     )
     es_paciente_riesgo = models.BooleanField(
         'Paciente de Riesgo',
-        default=False
+        default = False
     )
     centro_vacunatorio = models.CharField(
         'Centro Vacunatorio',
-        max_length=50,
-        blank=False,
-        null=False
+        max_length = 50,
+        blank = False,
+        null = False
     )
 
 
@@ -120,21 +120,21 @@ class VacunasDetalles(models.Model):
     vacuna_id = models.AutoField(primary_key=True)
     nombre = models.CharField(
         'Nombre',
-        max_length=100,
-        blank=False,
-        null=False
+        max_length = 100,
+        blank = False,
+        null = False
     )
     efectividad = models.CharField(
         'Efectividad',
-        max_length=20,
-        blank=True,
-        null=True
+        max_length = 20,
+        blank = True,
+        null = True
     )
     cantidad_dosis = models.CharField(
         'Cantidad Dosis',
-        max_length=50,
-        blank=True,
-        null=True
+        max_length = 50,
+        blank = True,
+        null = True
     )
 
     class Meta:
@@ -147,21 +147,21 @@ class VacunasDetalles(models.Model):
 
 class PacientesSolicitudes(models.Model):
 
-    solicitud_id = models.AutoField(primary_key=True)
-    vacuna = models.ForeignKey(VacunasDetalles, on_delete=models.CASCADE)
-    paciente = models.ForeignKey(PacientesDetalles, on_delete=models.CASCADE)
-    fecha_estimada = models.DateField(blank=False, null=False)
-    fecha_solicitud = models.DateField(default=datetime.today)
+    solicitud_id = models.AutoField(primary_key = True)
+    vacuna = models.ForeignKey(VacunasDetalles, on_delete = models.CASCADE)
+    paciente = models.ForeignKey(PacientesDetalles, on_delete = models.CASCADE)
+    fecha_estimada = models.DateField(blank = False, null = False)
+    fecha_solicitud = models.DateField(default = datetime.today)
     solicitud_aprobada = models.BooleanField(
-        default=False,
-        blank=False,
-        null=False
+        default = False,
+        blank = False,
+        null = False
     )
     centro_vacunatorio = models.CharField(
         'Centro Vacunatorio',
-        max_length=50,
-        blank=False,
-        null=False
+        max_length =  50 ,
+        blank = False,
+        null = False
     )
     
     class Meta:
@@ -175,29 +175,29 @@ class PacientesSolicitudes(models.Model):
 class PacientesTurnos(models.Model):
 
     turno_id = models.AutoField(
-        primary_key=True
+        primary_key = True
     )
     solicitud = models.ForeignKey(
         PacientesSolicitudes,
-        on_delete=models.CASCADE
+        on_delete = models.CASCADE
     )
     fecha_confirmada = models.DateField(
-        blank=True, null=True
+        blank = True, null = True
     )
     turno_perdido = models.BooleanField(
-        default=False,
-        blank=False,
-        null=False
+        default = False,
+        blank = False,
+        null = False
     )
     turno_pendiente = models.BooleanField(
-        default=True,
-        blank=False,
-        null=False
+        default = True,
+        blank = False,
+        null = False
     )
     turno_completado = models.BooleanField(
-        default=False,
-        blank=False,
-        null=False
+        default = False,
+        blank = False,
+        null = False
     )
 
     class Meta:
@@ -213,22 +213,22 @@ class PacientesTurnos(models.Model):
 
 
 class VacunasAplicadas(models.Model):
-    vacuna = models.ForeignKey(VacunasDetalles, on_delete=models.CASCADE)
-    paciente = models.ForeignKey(PacientesDetalles, on_delete=models.CASCADE) 
+    vacuna = models.ForeignKey(VacunasDetalles, on_delete = models.CASCADE)
+    paciente = models.ForeignKey(PacientesDetalles, on_delete = models.CASCADE) 
     lote = models.CharField(
         'lote',
-        max_length=100,
-        blank=False,
-        null=False,
-        default=" "
+        max_length = 100,
+        blank = False,
+        null = False,
+        default = " "
     )
     observacion = models.CharField(
         'observacion',
-        max_length=100,
-        blank=True,
-        null=True
+        max_length = 100,
+        blank = True,
+        null = True
     )
-    fecha_vacunacion = models.DateField('Fecha de Vacunacion', blank=False)
+    fecha_vacunacion = models.DateField('Fecha de Vacunacion', blank = False)
 
     class Meta:
         verbose_name = 'Vacunas Aplicada'

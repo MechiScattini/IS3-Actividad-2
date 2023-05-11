@@ -16,16 +16,16 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Usuarios',
-            fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('password', models.CharField(max_length=128, verbose_name='password')),
-                ('last_login', models.DateTimeField(blank=True, null=True, verbose_name='last login')),
-                ('email', models.EmailField(blank=True, max_length=254, unique=True, verbose_name='Mail')),
-                ('is_active', models.BooleanField(default=True)),
-                ('tipo_usuario', models.CharField(max_length=20, verbose_name='Tipo de Usuario')),
-                ('is_staff', models.BooleanField(default=False)),
-                ('is_admin', models.BooleanField(default=False)),
+            name = 'Usuarios',
+            fields = [
+                ('id', models.BigAutoField(auto_created = True, primary_key = True, serialize = False, verbose_name = 'ID')),
+                ('password', models.CharField(max_length = 128, verbose_name = 'password')),
+                ('last_login', models.DateTimeField(blank = True, null = True, verbose_name = 'last login')),
+                ('email', models.EmailField(blank = True, max_length = 254, unique = True, verbose_name = 'Mail')),
+                ('is_active', models.BooleanField(default = True)),
+                ('tipo_usuario', models.CharField(max_length = 20, verbose_name = ' Tipo de Usuario')),
+                ('is_staff', models.BooleanField(default = False)),
+                ('is_admin', models.BooleanField(default = False)),
             ],
             options={
                 'verbose_name': 'Usuario',
@@ -33,87 +33,87 @@ class Migration(migrations.Migration):
             },
         ),
         migrations.CreateModel(
-            name='PacientesDetalles',
-            fields=[
-                ('paciente_id', models.AutoField(primary_key=True, serialize=False)),
-                ('dni', models.IntegerField(unique=True, verbose_name='DNI')),
-                ('token', models.IntegerField(verbose_name='Token')),
-                ('sexo', models.CharField(max_length=20, verbose_name='Sexo')),
-                ('nombre', models.CharField(max_length=100, verbose_name='Nombre')),
-                ('apellido', models.CharField(max_length=100, verbose_name='Apellido')),
-                ('fecha_registro', models.DateTimeField(default=django.utils.timezone.now)),
-                ('fecha_nacimiento', models.DateField(verbose_name='Fecha de Nacimiento')),
-                ('es_paciente_riesgo', models.BooleanField(default=False, verbose_name='Paciente de Riesgo')),
-                ('centro_vacunatorio', models.CharField(max_length=50, verbose_name='Centro Vacunatorio')),
-                ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+            name = 'PacientesDetalles',
+            fields = [
+                ('paciente_id', models.AutoField(primary_key = True, serialize = False)),
+                ('dni', models.IntegerField(unique = True, verbose_name = 'DNI')),
+                ('token', models.IntegerField(verbose_name = 'Token')),
+                ('sexo', models.CharField(max_length = 20, verbose_name = 'Sexo')),
+                ('nombre', models.CharField(max_length = 100, verbose_name = 'Nombre')),
+                ('apellido', models.CharField(max_length = 100, verbose_name = 'Apellido')),
+                ('fecha_registro', models.DateTimeField(default = django.utils.timezone.now)),
+                ('fecha_nacimiento', models.DateField(verbose_name = 'Fecha de Nacimiento')),
+                ('es_paciente_riesgo', models.BooleanField(default = False, verbose_name = 'Paciente de Riesgo')),
+                ('centro_vacunatorio', models.CharField(max_length = 50, verbose_name = 'Centro Vacunatorio')),
+                ('user', models.OneToOneField(on_delete = django.db.models.deletion.CASCADE, to = settings.AUTH_USER_MODEL)),
             ],
-            options={
+            options = {
                 'verbose_name': 'Detalles Paciente',
                 'db_table': 'pacientes_detalles',
             },
         ),
         migrations.CreateModel(
-            name='PacientesSolicitudes',
-            fields=[
-                ('solicitud_id', models.AutoField(primary_key=True, serialize=False)),
+            name = 'PacientesSolicitudes',
+            fields = [
+                ('solicitud_id', models.AutoField(primary_key = True, serialize = False)),
                 ('fecha_estimada', models.DateField()),
-                ('fecha_solicitud', models.DateField(default=datetime.datetime.today)),
-                ('solicitud_aprobada', models.BooleanField(default=False)),
-                ('centro_vacunatorio', models.CharField(max_length=50, verbose_name='Centro Vacunatorio')),
-                ('paciente', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='pacientes.pacientesdetalles')),
+                ('fecha_solicitud', models.DateField(default = datetime.datetime.today)),
+                ('solicitud_aprobada', models.BooleanField(default = False)),
+                ('centro_vacunatorio', models.CharField(max_length = 50, verbose_name = 'Centro Vacunatorio')),
+                ('paciente', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to = 'pacientes.pacientesdetalles')),
             ],
-            options={
+            options = {
                 'verbose_name': 'Solicitudes Paciente',
                 'db_table': 'pacientes_solicitudes',
             },
         ),
         migrations.CreateModel(
-            name='VacunasDetalles',
-            fields=[
-                ('vacuna_id', models.AutoField(primary_key=True, serialize=False)),
-                ('nombre', models.CharField(max_length=100, verbose_name='Nombre')),
-                ('efectividad', models.CharField(blank=True, max_length=20, null=True, verbose_name='Efectividad')),
-                ('cantidad_dosis', models.CharField(blank=True, max_length=50, null=True, verbose_name='Cantidad Dosis')),
+            name = 'VacunasDetalles',
+            fields = [
+                ('vacuna_id', models.AutoField(primary_key = True, serialize = False)),
+                ('nombre', models.CharField(max_length = 100, verbose_name = 'Nombre')),
+                ('efectividad', models.CharField(blank = True, max_length = 20, null = True, verbose_name = 'Efectividad')),
+                ('cantidad_dosis', models.CharField(blank = True, max_length = 50, null = True, verbose_name = 'Cantidad Dosis')),
             ],
-            options={
+            options = {
                 'verbose_name': 'Detalles Vacuna',
                 'db_table': 'vacunas_detalles',
             },
         ),
         migrations.CreateModel(
-            name='VacunasAplicadas',
-            fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('lote', models.CharField(default=' ', max_length=100, verbose_name='lote')),
-                ('observacion', models.CharField(blank=True, max_length=100, null=True, verbose_name='observacion')),
-                ('fecha_vacunacion', models.DateField(verbose_name='Fecha de Vacunacion')),
-                ('paciente', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='pacientes.pacientesdetalles')),
-                ('vacuna', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='pacientes.vacunasdetalles')),
+            name = 'VacunasAplicadas',
+            fields = [
+                ('id', models.BigAutoField(auto_created = True, primary_key = True, serialize = False, verbose_name = 'ID')),
+                ('lote', models.CharField(default = ' ', max_length = 100, verbose_name = 'lote')),
+                ('observacion', models.CharField(blank = True, max_length = 100, null = True, verbose_name = 'observacion')),
+                ('fecha_vacunacion', models.DateField(verbose_name = 'Fecha de Vacunacion')),
+                ('paciente', models.ForeignKey(on_delete = django.db.models.deletion.CASCADE, to = 'pacientes.pacientesdetalles')),
+                ('vacuna', models.ForeignKey(on_delete = django.db.models.deletion.CASCADE, to = 'pacientes.vacunasdetalles')),
             ],
-            options={
+            options = {
                 'verbose_name': 'Vacunas Aplicada',
                 'db_table': 'vacunas_aplicadas',
             },
         ),
         migrations.CreateModel(
-            name='PacientesTurnos',
-            fields=[
-                ('turno_id', models.AutoField(primary_key=True, serialize=False)),
-                ('fecha_confirmada', models.DateField(blank=True, null=True)),
-                ('turno_perdido', models.BooleanField(default=False)),
-                ('turno_pendiente', models.BooleanField(default=True)),
-                ('turno_completado', models.BooleanField(default=False)),
-                ('solicitud', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='pacientes.pacientessolicitudes')),
+            name = 'PacientesTurnos',
+            fields = [
+                ('turno_id', models.AutoField(primary_key = True, serialize = False)),
+                ('fecha_confirmada', models.DateField(blank = True, null = True)),
+                ('turno_perdido', models.BooleanField(default = False)),
+                ('turno_pendiente', models.BooleanField(default = True)),
+                ('turno_completado', models.BooleanField(default = False)),
+                ('solicitud', models.ForeignKey(on_delete = django.db.models.deletion.CASCADE, to='pacientes.pacientessolicitudes')),
             ],
-            options={
+            options = {
                 'verbose_name': 'Turnos Paciente',
                 'db_table': 'pacientes_turnos',
             },
         ),
         migrations.AddField(
-            model_name='pacientessolicitudes',
-            name='vacuna',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='pacientes.vacunasdetalles'),
+            model_name = 'pacientessolicitudes',
+            name = 'vacuna',
+            field = models.ForeignKey(on_delete = django.db.models.deletion.CASCADE, to = 'pacientes.vacunasdetalles'),
         ),
         migrations.CreateModel(
             name='SolicitudesNoRiesgo',
@@ -126,19 +126,19 @@ class Migration(migrations.Migration):
                 'indexes': [],
                 'constraints': [],
             },
-            bases=('pacientes.pacientessolicitudes',),
+            bases = ('pacientes.pacientessolicitudes',),
         ),
         migrations.CreateModel(
-            name='SolicitudesRiesgo',
-            fields=[
+            name = 'SolicitudesRiesgo',
+            fields = [
             ],
-            options={
+            options = {
                 'verbose_name': 'solicitudes de pacientes de riesgo',
                 'verbose_name_plural': 'Solicitudes de Pacientes de Riesgo',
                 'proxy': True,
                 'indexes': [],
                 'constraints': [],
             },
-            bases=('pacientes.pacientessolicitudes',),
+            bases = ('pacientes.pacientessolicitudes',),
         ),
     ]

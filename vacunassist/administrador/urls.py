@@ -9,6 +9,6 @@ admin.site.password_change_done_template = 'admin/change_password_done.html'
 admin.site.index_template = 'admin/index.html'
 
 urlpatterns = [
-    path('', home_admin, name='home_admin'),
+    path('', home_admin, name = 'home_admin'),
 
 ]

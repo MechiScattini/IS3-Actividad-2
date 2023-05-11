@@ -56,11 +56,11 @@ class VacunaAdmin(admin.ModelAdmin):
          return False
 
     # función para no permitir que se modifique un elemento
-    def has_change_permission(self, request, obj=None):
+    def has_change_permission(self, request, obj = None):
         return False
 
     # función para no permitir que se elimine un elemento
-    def has_delete_permission(self, request, obj=None):
+    def has_delete_permission(self, request, obj = None):
         return False
  
 
@@ -126,11 +126,11 @@ class PacienteAdmin(admin.ModelAdmin):
         return False
 
     # función para no permitir que se modifique un elemento
-    def has_change_permission(self, request, obj=None):
+    def has_change_permission(self, request, obj = None):
         return False
 
     # función para no permitir que se elimine un elemento
-    def has_delete_permission(self, request, obj=None):
+    def has_delete_permission(self, request, obj = None):
         return False
 
     """sobreescribo el método de buscado 
@@ -143,13 +143,13 @@ class PacienteAdmin(admin.ModelAdmin):
 
         queryset = (
             queryset
-            .filter(tipo_usuario='paciente')
+            .filter(tipo_usuario = 'paciente')
             .select_related("pacientesdetalles")
         )
         return queryset, use_distinct
 
 
-    @admin.display(description='Acciones')
+    @admin.display(description = 'Acciones')
     def boton(self, obj):
         """el parámetro 'obj.pk' es el id del objeto dentro de la línea,
         hay que pasarlo en el link para saber qué objeto se va a usar,
@@ -164,37 +164,37 @@ class PacienteAdmin(admin.ModelAdmin):
         )
         return mark_safe(render_action_buttons)
 
-    @admin.display(description='Nombre')
+    @admin.display(description = 'Nombre')
     def format_nombre(self, obj):
         return obj.pacientesdetalles.nombre
 
-    @admin.display(description='Apellido')
+    @admin.display(description =  'Apellido')
     def format_apellido(self, obj):
         return obj.pacientesdetalles.apellido
     
-    @admin.display(description='sexo')
+    @admin.display(description = 'sexo')
     def format_sexo(self, obj):
         return obj.pacientesdetalles.sexo
 
-    @admin.display(description='Nacimiento')
+    @admin.display(description = 'Nacimiento')
     def format_fecha_nacimiento(self, obj):
         return obj.pacientesdetalles.fecha_nacimiento
     
-    @admin.display(description='riesgo')
+    @admin.display(description = 'riesgo')
     def format_riesgo(self, obj):
         if obj.pacientesdetalles.es_paciente_riesgo:
             return "Si"
         else: 
             return "No"
  
-    @admin.display(description='Edad')
+    @admin.display(description = 'Edad')
     def edad(self, obj):
         return relativedelta(
             date.today(),
             obj.pacientesdetalles.fecha_nacimiento
         ).years
 
-    @admin.display(description='Dni')
+    @admin.display(description = 'Dni')
     def format_dni(self, obj):
         return obj.pacientesdetalles.dni
 

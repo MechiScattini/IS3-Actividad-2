@@ -54,12 +54,12 @@ def get_chart_solicitud(data, centro, **kwargs):
 
     d = data.sort_values(
         'fecha_estimada',
-        ascending=True
+        ascending = True
     ).query(
         f"centro_vacunatorio=='{centro}'"
     ).groupby(
         ['fecha_estimada', 'vacuna_id'],
-        as_index=False
+        as_index = False
     )['solicitud_id'].agg('count')
 
     try:
@@ -72,17 +72,17 @@ def get_chart_solicitud(data, centro, **kwargs):
                     'vacuna_id' : vacuna,
                     'solicitud_id' : 0,
                     'fecha_estimada' : d.iat[0,0],
-                    }, ignore_index=True)
+                    }, ignore_index = True)
     except Exception:
         return False
 
     d = pd.pivot_table(
         d,
-        index=['fecha_estimada', 'vacuna_id'],
-        values='solicitud_id',
-        fill_value=0,
-        dropna=False,
-        aggfunc=np.sum
+        index = ['fecha_estimada', 'vacuna_id'],
+        values = 'solicitud_id',
+        fill_value = 0,
+        dropna = False,
+        aggfunc = np.sum
     ).reset_index()
 
     d['fecha_estimada'] = (
@@ -98,11 +98,11 @@ def get_chart_solicitud(data, centro, **kwargs):
         pyplot.plot(
             xlabels,
             d.query(f"vacuna_id=={vacuna}")['solicitud_id'],
-            color=line_color[vacuna],
-            marker='o',
-            linestyle='-.',
-            linewidth=1,
-            label=nombres_vacuna[vacuna]
+            color = line_color[vacuna],
+            marker = 'o',
+            linestyle = '-.',
+            linewidth = 1,
+            label = nombres_vacuna[vacuna]
         )
 
     pyplot.title(f'Centro: {centro}')
@@ -117,7 +117,7 @@ def get_chart_solicitud(data, centro, **kwargs):
 
 def get_chart_turnos(data, centro, **kwargs):
     pyplot.switch_backend('AGG')
-    pyplot.figure(figsize=(10, 4))
+    pyplot.figure(figsize = (10, 4))
     """fig = pyplot.figure(figsize=(12, 4))
     key = get_key(results_by)
     """
@@ -136,9 +136,9 @@ def get_chart_turnos(data, centro, **kwargs):
     }
 
     d = (
-        data.sort_values('fecha_confirmada', ascending=True)
+        data.sort_values('fecha_confirmada', ascending = True)
         .query(f"centro_vacunatorio=='{centro}'")
-        .groupby(['fecha_confirmada', 'vacuna_id'], as_index=False)['turno_id']
+        .groupby(['fecha_confirmada', 'vacuna_id'], as_index = False)['turno_id']
         .agg('count')
     )
 
@@ -152,7 +152,7 @@ def get_chart_turnos(data, centro, **kwargs):
                     'vacuna_id' : vacuna,
                     'turno_id' : 0,
                     'fecha_confirmada' : d.iat[0,0],
-                    }, ignore_index=True)
+                    }, ignore_index = True)
     except Exception:
         return False
 
@@ -177,11 +177,11 @@ def get_chart_turnos(data, centro, **kwargs):
         pyplot.plot(
             xlabels,
             d.query(f"vacuna_id=={vacuna}")['turno_id'],
-            color=line_color[vacuna],
-            marker='o',
-            linestyle='-.',
-            linewidth=1,
-            label=nombres_vacuna[vacuna]
+            color = line_color[vacuna],
+            marker = 'o',
+            linestyle = '-.',
+            linewidth = 1,
+            label = nombres_vacuna[vacuna]
         )
 
     pyplot.title(f'Centro: {centro}')
