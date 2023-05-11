@@ -31,12 +31,30 @@ class Migration(migrations.Migration):
             name='PersonalDetalles',
             fields=[
                 ('personal_id', models.AutoField(primary_key=True, serialize=False)),
-                ('nombre', models.CharField(default='m', max_length=100, verbose_name='Nombre')),
-                ('apellido', models.CharField(default='m', max_length=100, verbose_name='Apellido')),
-                ('numero_telefono', models.CharField(max_length=20, verbose_name='Número Teléfono')),
+                (
+                    'nombre',
+                    models.CharField(default='m', max_length=100, verbose_name='Nombre')
+                ),
+                (
+                    'apellido',
+                    models.CharField(default='m', max_length=100, verbose_name='Apellido')
+                ),
+                (
+                    'numero_telefono',
+                    models.CharField(max_length=20, verbose_name='Número Teléfono')
+                ),
                 ('fecha_nacimiento', models.DateField(verbose_name='Fecha de Nacimiento')),
-                ('centro_vacunatorio', models.CharField(max_length=50, verbose_name='Centro Vacunatorio')),
-                ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                (
+                    'centro_vacunatorio',
+                    models.CharField(max_length=50, verbose_name='Centro Vacunatorio')
+                ),
+                (
+                    'user',
+                    models.OneToOneField(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to=settings.AUTH_USER_MODEL
+                    )
+                ),
             ],
             options={
                 'verbose_name': 'Detalles Personal',
