@@ -351,13 +351,11 @@ def marcar_inasistencias(request):
     return redirect('/personal_vacunatorio/turnos/')
 
 
-
-
-
 class LoginAfterPasswordChangeView(PasswordChangeView):
     @property
     def success_url(self):
         return reverse_lazy('inicio_sesion/')
+
 
 login_after_password_change = login_required(
     LoginAfterPasswordChangeView
@@ -365,8 +363,6 @@ login_after_password_change = login_required(
 )
 
 
-     
-     
 def restPasswordPer(request):   
     if request.method == "POST":
         form = PasswordResetForm(data = request.POST)
@@ -402,6 +398,7 @@ class restPasswordConfirm(PasswordResetConfirmView):
     form_class = PasswordResetForm
     success_url ="/pacientes/restablecer-contrasenia-hecho/"
 """
+
 
 def restDone(request):
     

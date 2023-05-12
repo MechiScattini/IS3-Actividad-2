@@ -97,7 +97,8 @@ def signup1(request):
 
     context = {'form' : form}
     return render(request, 'pacientes/signup1.html', context)
-    
+
+
 def signup2(request):
 
     if request.method == 'POST':
@@ -270,14 +271,12 @@ def editar_perfil(request):
 
     perfil = PacientesDetalles.objects.get(user_id = request.user.id) 
 
- 
     # pass the object as instance in form
     form = UserUpdateForm(
         request.POST or None ,
         request.FILES ,
         instance = perfil
     )
-
 
     """save the data from the form and
     redirect to detail_view
@@ -354,13 +353,12 @@ class LoginAfterPasswordChangeView(PasswordChangeView):
     def success_url(self):
         return reverse_lazy('inicio_sesion/')
 
+
 login_after_password_change = (
     login_required(LoginAfterPasswordChangeView.as_view())
 )
 
 
-     
-     
 def restPassword(request):   
     if request.method == "POST":
         form = PasswordResetForm(data = request.POST)
@@ -386,6 +384,7 @@ class restPasswordConfirm(PasswordResetConfirmView):
     form_class = PasswordResetForm
     success_url ="/pacientes/restablecer-contrasenia-hecho/"     
 """
+
 
 def restDone(request):
     

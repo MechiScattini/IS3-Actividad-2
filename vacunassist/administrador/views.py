@@ -50,6 +50,7 @@ class PersonalPasswordChangeView(PasswordChangeView):
         except the current one.
         """
 
+
 class PersonalChangePassword(PersonalPasswordChangeView):
     form_class = PasswordChangeForm
     template_name = 'admin/personal_password_change_form.html'
@@ -74,6 +75,7 @@ def admin_asignar_turno(request,**kwargs):
       return redirect('/admin/pacientes/solicitudesnoriesgo/')   
     else:
       return redirect('/admin/pacientes/solicitudesriesgo/')
+
 
 def paciente_detele_user(request, *args, **kwargs):
 

@@ -92,7 +92,6 @@ class PersonalChangeForm(forms.ModelForm):
         )
     )
 
-
     # redefinir este método para que se pueda actualizar sin problemas
     def save(self, commit = True):
         """if not commit:
@@ -118,7 +117,6 @@ class PersonalChangeForm(forms.ModelForm):
         personal_details.save()
 
         return user
-
 
     class Meta:
         model = PersonalDetalles
@@ -197,7 +195,6 @@ class PersonalSignUpForm(UserCreationForm):
         model = Usuarios
         fields = ('nombre', 'apellido', 'numero_telefono', 'fecha_nacimiento',
                   'email', 'password1', 'password2', 'centro_vacunatorio',)
-
 
     def send_register_email(self):
         '''Se envía un mail al correo del usuario paciente

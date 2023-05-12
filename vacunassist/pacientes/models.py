@@ -106,7 +106,6 @@ class PacientesDetalles(models.Model):
         null = False
     )
 
-
     class Meta:
         verbose_name = 'Detalles Paciente'
         db_table = 'pacientes_detalles'
